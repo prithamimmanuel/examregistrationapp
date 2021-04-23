@@ -30,6 +30,12 @@ export class Home extends Component {
                 Sign Up
               </Link>
             </div>
+            <div className="signup">
+              Admin? Sign in!
+              <Link to="/login/admin" className="in">
+                Sign in
+              </Link>
+            </div>
           </div>
       </div>
     );
