@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const app = express();
 // const attendance=require("./class_object.js");
 // let obj=new attendance();
+const add_student = require("./add_student");
 var bodyParser = require("body-parser");
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -39,9 +40,9 @@ app.use((req,res,next)=>{
 app.post("/registerstudent", (req, res) => {
   
 
-	console.log(req.body);
+
 	// add req.body details to mongodb
-	
+	add_student(req.body);
 
 	//do sql shit with fields.name (name currospionds to html)
 
@@ -66,7 +67,6 @@ app.post("/loginstudent", (req, res) => {
 app.post("/registerexam", (req, res) => {
 	console.log(req.body);
 	//check the db for (req.password) and req.username
-
 
 	res.status(200).json({"error":"none"});
 });
