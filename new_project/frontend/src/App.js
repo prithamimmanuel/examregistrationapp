@@ -9,6 +9,8 @@ import LoginStudent from "./Login/login_student";
 import RegisterStudent from "./Login/register_student";
 import LoginAdmin from "./Login/login_admin";
 import AdminHome from "./Admin/admin_home";
+import StudentHome from "./Student/student_home";
+import RegistrationStatus from "./Student/registration_status";
 // import LoginTeacher from "./Login/login_teacher";
 import {Home} from "./home";
 // import { Home2 } from "./UI/home2";
@@ -52,6 +54,20 @@ class App extends Component {
             exact
             render={(props) => {
               return <AdminHome/>;
+            }}
+          />
+          <Route
+            path="/studenthome"
+            exact
+            render={(props) => {
+              return <StudentHome/>;
+            }}
+          />
+          <Route
+            path="/registrationstatus"
+            exact
+            render={(props) => {
+              return <RegistrationStatus/>;
             }}
           />
           {/* <Route

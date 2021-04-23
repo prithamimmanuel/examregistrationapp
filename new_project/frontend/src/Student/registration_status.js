@@ -57,7 +57,7 @@ export default function LoginStudent() {
     e.preventDefault();
     console.log("reached");
     axios
-      .post("http://localhost:5000/studenthome",{
+      .post("http://localhost:5000/registrationstatus",{
         email: email,
         password: password,
       })
@@ -79,7 +79,7 @@ export default function LoginStudent() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Student Home
+          Registration status
         </Typography>
        
           <Button
@@ -90,7 +90,7 @@ export default function LoginStudent() {
             className={classes.submit}
             onClick={handle_submit}
           >
-            Register for Exam
+            Download Hall Ticket
           </Button>
           <br></br>
           <Button
@@ -101,9 +101,19 @@ export default function LoginStudent() {
             className={classes.submit}
             onClick={handle_submit}
           >
-           Registration Status
+            Reschedule Exam
           </Button>
           <br></br>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={handle_submit}
+          >
+            Pay Registration Fee
+          </Button>
       </div>
       <Box mt={8}>
         <Copyright />
