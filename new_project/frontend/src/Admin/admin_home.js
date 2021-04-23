@@ -57,7 +57,7 @@ export default function LoginAdmin() {
     e.preventDefault();
     console.log("reached");
     axios
-      .post("http://localhost:5000/loginadmin",{
+      .post("http://localhost:5000/adminhome",{
         email: email,
         password: password,
       })
@@ -80,37 +80,9 @@ export default function LoginAdmin() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Admin Login
+          Admin Home
         </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+       
           <Button
             type="submit"
             fullWidth
@@ -119,20 +91,30 @@ export default function LoginAdmin() {
             className={classes.submit}
             onClick={handle_submit}
           >
-            Login
+            View Seating Arrangements
           </Button>
-          <Grid container>
-            <Grid item xs>
-            </Grid>
-            {/* <Grid item>
-              <Link to="/register">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid> */}
-            <Grid container>
-          </Grid>
-          </Grid>
-        </form>
+          <br></br>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={handle_submit}
+          >
+            Cancel Registration
+          </Button>
+          <br></br>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={handle_submit}
+          >
+            Review Payment Status
+          </Button>
       </div>
       <Box mt={8}>
         <Copyright />
