@@ -6,17 +6,11 @@ export class Home extends Component {
     return (
       <div>
           <div className="mainhome">
-            <title>Covid-19 Patient Monitor</title>
+            <title>Exam Registration System</title>
             <div>
-              <header className="heading">
-                Covid-19 Patient Monitor System
-              </header>
+              
               <br></br>
-              <div className="description">
-                Welcome ! This system allows doctors to monitor vital
-                information about a patient. Patients can provide their details
-                to the server , and admins can manage these profiles
-              </div>
+              
             </div>
             <div className="signin">
               Do you have an account? Log in
@@ -25,7 +19,7 @@ export class Home extends Component {
               </Link>
             </div>
             <div className="signup">
-              Are you a new Patient? Sign up!
+              Are you a new student? Sign up!
               <Link to="/register/student" className="in">
                 Sign Up
               </Link>
