@@ -8,6 +8,7 @@ import React, { Component } from "react";
 import LoginStudent from "./Login/login_student";
 import RegisterStudent from "./Login/register_student";
 import LoginAdmin from "./Login/login_admin";
+import AdminHome from "./Admin/admin_home";
 // import LoginTeacher from "./Login/login_teacher";
 import {Home} from "./home";
 // import { Home2 } from "./UI/home2";
@@ -44,6 +45,13 @@ class App extends Component {
             exact
             render={(props) => {
               return <LoginAdmin/>;
+            }}
+          />
+          <Route
+            path="/adminhome"
+            exact
+            render={(props) => {
+              return <AdminHome/>;
             }}
           />
           {/* <Route
