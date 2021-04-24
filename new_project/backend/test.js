@@ -4,6 +4,9 @@ const app = express();
 // const attendance=require("./class_object.js");
 // let obj=new attendance();
 const add_student = require("./add_student");
+const show_student = require("./show_student");
+const db=require("./sql_test.js");
+
 var bodyParser = require("body-parser");
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -11,10 +14,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-var mongoDB = 'mongodb+srv://ssnboys:ssn123@examcluster.fldga.mongodb.net/exam_database?retryWrites=true&w=majority';
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true});
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+// var mongoDB = 'mongodb+srv://ssnboys:ssn123@examcluster.fldga.mongodb.net/exam_database?retryWrites=true&w=majority';
+// mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true});
+// var db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // var multiparty = require("multiparty");
 var path = require("path");
@@ -42,7 +45,7 @@ app.post("/registerstudent", (req, res) => {
 
 
 	// add req.body details to mongodb
-	add_student(req.body);
+	add_student.add_student(req.body);
 
 	//do sql shit with fields.name (name currospionds to html)
 
@@ -52,36 +55,50 @@ app.post("/registerstudent", (req, res) => {
 // MAKING LOGINS 
 
 app.post("/loginstudent", (req, res) => {
-	console.log(req.body);
-	//check the db for (req.password) and req.username
+	
+	let x;
 
+	const fetchData = callback => {
+		const promise = new Promise(async (resolve, reject) => {
+			
+			try {
+				let x = await db.execute("select * from students where email = ?;", [req.body['email']]);
+				resolve(x[0]);
+			} catch (err) {
+				reject(err);
+			}
 
-	//if username incorrect 
-	// res.status(200).json({"error":"incorrect username"});
-	// //if password incorrect 
-	// res.status(200).json({"error":"incorrect password"});
-	// else 
+		});
+		return promise;		
+	};
+
+	fetchData().then(data => {
+		x = data[0];
+		console.log(x);
+
+		if (x == undefined) {
+			console.log("User not found");
+		} else {
+			if (x['password'] != req.body['password']) {
+				console.log("Incorrect password!");
+			} else {
+				console.log("Logged in!");
+			}
+		}
+
+	}, err => {
+		console.log(err);
+	});
+
+	
 	res.status(200).json({"error":"none"});
+
 });
 
 app.post("/registerexam", (req, res) => {
 	console.log(req.body);
 	//check the db for (req.password) and req.username
 
-	res.status(200).json({"error":"none"});
-});
-
-app.post("/loginteacher", (req, res) => {
-	console.log(req.body.email);
-	//use same hash function on req.password
-	//check the db for hashed(req.pw) and req.username
-
-
-	//if username incorrect 
-	// res.status(200).json({"error":"incorrect username"});
-	// //if pw incorrect 
-	// res.status(200).json({"error":"incorrect password"});
-	// else 
 	res.status(200).json({"error":"none"});
 });
 
