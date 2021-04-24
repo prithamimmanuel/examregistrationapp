@@ -1,11 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-// const attendance=require("./class_object.js");
-// let obj=new attendance();
+
 const add_student = require("./add_student");
 const show_student = require("./show_student");
+const test_controller = require("./testController");
 const db=require("./sql_test.js");
+
 
 var bodyParser = require("body-parser");
 // parse application/x-www-form-urlencoded
@@ -50,47 +51,9 @@ app.post("/registerstudent", (req, res) => {
 
 // MAKING LOGINS 
 
-app.post("/loginstudent", (req, res) => {
-	
-	let x;
+app.post("/loginstudent", test_controller.loginstudent);
 
-	const fetchData = callback => {
-		const promise = new Promise(async (resolve, reject) => {
-			
-			try {
-				let x = await db.execute("select * from students where email = ?;", [req.body['email']]);
-				resolve(x[0]);
-			} catch (err) {
-				reject(err);
-			}
-
-		});
-		return promise;		
-	};
-
-	fetchData().then(data => {
-		x = data[0];
-		console.log(x);
-
-		if (x == undefined) {
-			console.log("User not found");
-		} else {
-			if (x['password'] != req.body['password']) {
-				console.log("Incorrect password!");
-			} else {
-				console.log("Logged in!");
-			}
-		}
-
-	}, err => {
-		console.log(err);
-	});
-
-	
-	
-	res.status(200).json({"error":"none"});
-
-});
+app.post("/student/:s_id", test_controller.student_home);
 
 app.post("/registerexam", (req, res) => {
 	console.log(req.body);

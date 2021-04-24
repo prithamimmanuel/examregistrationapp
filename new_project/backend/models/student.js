@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var StudentSchema = new Schema(
     {
-        username: {type: String, required: true, maxlength: 30},
+        email: {type: String, required: true, maxlength: 30},
         password: {type: String, required: true, maxlength: 20},
         name: {type: String, required: true, maxlength: 100}
     }

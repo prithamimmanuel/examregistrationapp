@@ -64,9 +64,10 @@ export default function LoginStudent() {
       .then((res) => {
         if (res.data.error === "none") {
           // window.location.href("url/studenthome/:s_email")
+          window.location.href = "../student/" + res.data.student_id;
           console.log("response", res);
         } else {
-          alert("ERROR ", res.data.error);
+          console.log("response", res);
         }
       })
       .catch((err) => console.log(err));
