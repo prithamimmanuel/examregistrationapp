@@ -11,6 +11,7 @@ import LoginAdmin from "./Login/login_admin";
 import AdminHome from "./Admin/admin_home";
 import StudentHome from "./Student/student_home";
 import RegistrationStatus from "./Student/registration_status";
+import ExamRegistration from "./Student/register_exam";
 // import LoginTeacher from "./Login/login_teacher";
 import {Home} from "./home";
 // import { Home2 } from "./UI/home2";
@@ -68,6 +69,13 @@ class App extends Component {
             exact
             render={(props) => {
               return <RegistrationStatus/>;
+            }}
+          />
+          <Route
+            path="/examregistration"
+            exact
+            render={(props) => {
+              return <ExamRegistration />;
             }}
           />
           {/* <Route
