@@ -47,29 +47,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LoginStudent() {
+export default function StudentHome(props) {
   const classes = useStyles();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
 
-  const handle_submit = (e) => {
-    e.preventDefault();
-    console.log("reached");
-    axios
-      .post("http://localhost:5000/studenthome",{
-        email: email,
-        password: password,
-      })
-      .then((res) => {
-        if (res.data.error === "none") {
-          console.log("response", res);
-        } else {
-          alert("ERROR ", res.data.error);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
+  let id = props.match.params.s_id;
+  console.log(id);
+
+  let x;
+
+  const fetchData = callback => {
+    const promise = new Promise(async (resolve, reject) => {
+			
+			try {
+				let x = await axios.post("http://localhost:5000/studenthome",{
+          id: id
+        });
+				resolve(x);
+			} catch (err) {
+				reject(err);
+			}
+
+		});
+		return promise;		
+  }
+
+  fetchData().then(data => {
+		x = data.data.student;
+    console.log(x);
+	}, err => {
+		console.log(err);
+	});
 
   return (
     <Container component="main" maxWidth="xs">
@@ -81,6 +91,9 @@ export default function LoginStudent() {
         <Typography component="h1" variant="h5">
           Student Home
         </Typography>
+        <Typography component="h2" variant="h5">
+          Welcome
+        </Typography>
        
           <Button
             type="submit"
@@ -88,7 +101,7 @@ export default function LoginStudent() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={handle_submit}
+            // onClick={handle_submit}
           >
             Register for Exam
           </Button>
@@ -99,7 +112,7 @@ export default function LoginStudent() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={handle_submit}
+            // onClick={handle_submit}
           >
            Registration Status
           </Button>

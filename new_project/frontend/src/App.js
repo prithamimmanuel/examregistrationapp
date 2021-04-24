@@ -12,7 +12,7 @@ import { Route, BrowserRouter } from "react-router-dom";
 class App extends Component {
   //set host url here
 
-  url = "http://localhost:3000";
+  new_url = "http://localhost:3000";
   render() {
     return (
       <div className="App">
@@ -72,7 +72,7 @@ class App extends Component {
             path="/student/:s_id"
             exact
             render={(props) => {
-              return <StudentHome {...props} url={this.url} />;
+              return <StudentHome {...props}  />;
             }}
           />
           

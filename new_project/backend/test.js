@@ -53,7 +53,7 @@ app.post("/registerstudent", (req, res) => {
 
 app.post("/loginstudent", test_controller.loginstudent);
 
-app.post("/student/:s_id", test_controller.student_home);
+app.post("/studenthome", test_controller.studenthome);
 
 app.post("/registerexam", (req, res) => {
 	console.log(req.body);
