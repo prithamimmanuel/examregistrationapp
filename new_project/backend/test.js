@@ -34,10 +34,6 @@ app.use((req,res,next)=>{
     next();
 })
 
-// app.get("/", function (req, res) {
-//   res.sendFile(path.join(__dirname, "./enterDetails.html"));
-// });
-
 // STUDENT REGISTRATION 
 
 app.post("/registerstudent", (req, res) => {
@@ -90,6 +86,7 @@ app.post("/loginstudent", (req, res) => {
 		console.log(err);
 	});
 
+	
 	
 	res.status(200).json({"error":"none"});
 
