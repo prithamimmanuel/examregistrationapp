@@ -85,9 +85,7 @@ export default function ExamRegistration() {
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-                </Avatar>
+                
                 <Typography component="h1" variant="h5">
                     Register For examination
                 </Typography>
@@ -184,6 +182,16 @@ export default function ExamRegistration() {
                             shrink: true,
                         }}
                     />
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                        onClick={handle_submit}
+                    >
+                        Submit
+          </Button>
 
                 </form>
             </div>
