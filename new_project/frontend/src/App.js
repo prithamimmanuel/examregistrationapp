@@ -6,6 +6,7 @@ import LoginAdmin from "./Login/login_admin";
 import AdminHome from "./Admin/admin_home";
 import StudentHome from "./Student/student_home";
 import RegistrationStatus from "./Student/registration_status";
+import ExamRegistration from "./Student/register_exam";
 import {Home} from "./home";
 import { Route, BrowserRouter } from "react-router-dom";
 
@@ -59,7 +60,17 @@ class App extends Component {
             render={(props) => {
               return <RegistrationStatus/>;
             }}
+            
           />
+          <Route
+            path="/examregistration"
+            exact
+            render={(props) => {
+              return <ExamRegistration />;
+            }}
+
+          />
+          
           {/* <Route
             path="/login/teacher"
             exact
@@ -96,7 +107,7 @@ class App extends Component {
           //   render={(props) => {
           //     return <VitalsTable2 {...props} url={this.url} />;
           //   }}
-          // /> */} */}
+          // /> */} 
         </BrowserRouter>
       </div>
     );
