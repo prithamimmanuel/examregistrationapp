@@ -62,6 +62,10 @@ export default function StudentHome(props) {
     window.location.href = "./examregistration/" + id;
   };
 
+  const handle_status_submit = (e) => {
+    window.location.href = "./registrationstatus/" + id;
+  };
+
   //  const handle_exam_submit = e => {
   //    window.location.href = "www.google.com";
   //  }
@@ -97,7 +101,7 @@ export default function StudentHome(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            // onClick={handle_exam_submit}
+            onClick={handle_status_submit}
           >
            Registration Status
           </Button>

@@ -47,11 +47,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LoginStudent() {
+export default function RegistrationStatus() {
   const classes = useStyles();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  console.log("reached");
 
   const handle_submit = (e) => {
     e.preventDefault();
