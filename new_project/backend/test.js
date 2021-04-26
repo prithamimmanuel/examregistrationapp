@@ -57,6 +57,8 @@ app.post("/studenthome", test_controller.studenthome);
 
 app.post("/deletestudent", test_controller.deletestudent);
 
+app.post("/getallstudents", test_controller.getallstudents);
+
 app.post("/registerexam", (req, res) => {
 	console.log(req.body);
 	//check the db for (req.password) and req.username

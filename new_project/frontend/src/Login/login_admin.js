@@ -56,20 +56,13 @@ export default function LoginAdmin() {
   const handle_submit = (e) => {
     e.preventDefault();
     console.log("reached");
-    axios
-      .post("http://localhost:5000/loginadmin",{
-        email: email,
-        password: password,
-      })
-      .then((res) => {
-        if (res.data.error === "none") {
-          // window.location.href("url/adminhome/:s_email")
-          console.log("response", res);
-        } else {
-          alert("ERROR ", res.data.error);
-        }
-      })
-      .catch((err) => console.log(err));
+    if (email == "admin" && password == "admin") { 
+      window.location.href = "../admin/home";
+      console.log("correct login");
+    } else {
+      console.log("incorrect login"); 
+    }
+
   };
 
   return (

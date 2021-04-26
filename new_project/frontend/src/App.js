@@ -41,7 +41,7 @@ class App extends Component {
             }}
           />
           <Route
-            path="/adminhome"
+            path="/admin/home"
             exact
             render={(props) => {
               return <AdminHome/>;

@@ -108,3 +108,41 @@ exports.deletestudent = (req, res) => {
 	});
 }
 
+exports.getallstudents = (req, res) => {
+	let x;
+
+	const fetchData = callback => {
+		const promise = new Promise(async (resolve, reject) => {
+			
+			try {
+				let x = await db.execute("select * from students;");
+				console.log(x[0]);
+				resolve(x[0]);
+			} catch (err) {
+				reject(err);
+			}
+
+		});
+		return promise;		
+	};
+
+	fetchData().then(data => {
+		x = data;
+		// console.log(data);
+		// console.log("/n/n/n/nstart");
+		for (student in x) {
+			console.log(x[student]['name']);
+		}
+		// console.log("end/n/n/n/n");
+		if (x == undefined) {
+			console.log("no clue what happened there");
+			res.status(200).json({"error":"db error"});
+		} else {
+			console.log("all good");
+			res.status(200).json({"error":"none", students: x});
+		}
+
+	}, err => {
+		console.log(err);
+	});
+}

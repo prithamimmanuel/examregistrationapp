@@ -30,6 +30,7 @@ export class Home extends Component {
                 Sign in
               </Link>
             </div>
+            
           </div>
       </div>
     );

@@ -72,6 +72,25 @@ export default function LoginAdmin() {
       .catch((err) => console.log(err));
   };
 
+  const handle_all_students = (e) => {
+    e.preventDefault();
+    console.log("reached all students");
+    axios
+      .post("http://localhost:5000/getallstudents",{
+        dummy: "dummy"
+      })
+      .then((res) => {
+        if (res.data.error === "none") {
+          // window.location.href("url/studenthome/:s_email")
+          // window.location.href = "../student/" + res.data.student_id;
+          console.log("response", res);
+        } else {
+          console.log("response", res);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -83,6 +102,16 @@ export default function LoginAdmin() {
           Admin Home
         </Typography>
        
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={handle_all_students}
+          >
+            Display All Students
+          </Button>
           <Button
             type="submit"
             fullWidth
@@ -115,6 +144,7 @@ export default function LoginAdmin() {
           >
             Review Payment Status
           </Button>
+          
       </div>
       <Box mt={8}>
         <Copyright />
