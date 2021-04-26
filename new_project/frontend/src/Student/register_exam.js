@@ -153,6 +153,20 @@ export default function ExamRegistration() {
                         autoFocus
                         onChange={(e) => setEmail(e.target.value)}
                     />
+                    <p> Subject</p>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel id="Subject"></InputLabel>
+                        <Select
+                            labelId="Subject"
+                            id="subject_id"
+
+                        >
+                            <MenuItem >GRE</MenuItem>
+                            <MenuItem >GMAT</MenuItem>
+                            <MenuItem >IELTS</MenuItem>
+                            <MenuItem >TOEFL</MenuItem>
+                        </Select>
+                    </FormControl>
                     <p> Enter Venue:</p>
                     <FormControl className={classes.formControl}>
                         <InputLabel id="Venue"></InputLabel>
