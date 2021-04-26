@@ -66,6 +66,25 @@ export default function StudentHome(props) {
     window.location.href = "./registrationstatus/" + id;
   };
 
+  const handle_delete = (e) => {
+    e.preventDefault();
+    console.log("delete button clicked");
+    axios
+      .post("http://localhost:5000/deletestudent",{
+        id: id
+      })
+      .then((res) => {
+        if (res.data.error === "no user") {
+          // window.location.href("url/studenthome/:s_email")
+          window.location.href = "../../";
+          console.log("response", res);
+        } else {
+          console.log("response", res);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   //  const handle_exam_submit = e => {
   //    window.location.href = "www.google.com";
   //  }
@@ -104,6 +123,17 @@ export default function StudentHome(props) {
             onClick={handle_status_submit}
           >
            Registration Status
+          </Button>
+          <br></br>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={handle_delete}
+          >
+           Delete Student
           </Button>
           <br></br>
       </div>
