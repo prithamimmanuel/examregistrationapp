@@ -71,5 +71,4 @@ async function tester()
 }
 
 
-tester();
 
