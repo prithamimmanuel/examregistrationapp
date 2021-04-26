@@ -1,4 +1,5 @@
 const db=require("./sql_test.js");
+const db2=require("./exam_db");
 
 exports.loginstudent = (req, res) => {
 	

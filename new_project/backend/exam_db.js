@@ -11,8 +11,11 @@ class exam
         await new Promise(r => setTimeout(r, 1000));
         try
         {
-            const result= await db.execute("CREATE TABLE `my_db`.`exam_details` (`Name` VARCHAR(45) NOT NULL,`Age` INT NOT NULL,`DOB` DATE NOT NULL,`Phone_no` VARCHAR(45) NOT NULL,`Address` VARCHAR(45) NOT NULL,`Venue` VARCHAR(45) NOT NULL,`Exam_Date` DATE NOT NULL,`Email_Id` VARCHAR(45) NOT NULL,PRIMARY KEY (`Email_Id`),UNIQUE INDEX `Email_Id_UNIQUE` (`Email_Id` ASC) VISIBLE);");
             const result1 = await db.execute("CREATE TABLE `my_db`.`students` (`student_id` INT NOT NULL AUTO_INCREMENT,`Name` VARCHAR(45) NOT NULL,`email` VARCHAR(45) NOT NULL,`password` VARCHAR(45) NOT NULL,PRIMARY KEY(student_id),UNIQUE INDEX idstudent_UNIQUE(student_id ASC) VISIBLE);");
+
+            const result2 = await db.execute("CREATE TABLE `my_db`.`exam_data` (`examcode` VARCHAR(45) NOT NULL, `seatno` VARCHAR(45) NOT NULL, `status` INT NOT NULL ,PRIMARY KEY(examcode,seatno));");
+
+            const result = await db.execute("CREATE TABLE `my_db`.`student_exam_details` (`student_id` INT NOT NULL,`Name` VARCHAR(45) NOT NULL,`Age` INT NOT NULL,`DOB` DATE NOT NULL,`Phone_no` VARCHAR(45) NOT NULL,`Address` VARCHAR(45) NOT NULL,`subject` VARCHAR(45) NOT NULL ,`Venue` VARCHAR(45) NOT NULL,`Exam_Date` DATE NOT NULL,`examcode` VARCHAR(45) NOT NULL,`seatno` VARCHAR(45) NOT NULL,PRIMARY KEY (student_id,examcode),FOREIGN KEY(student_id) REFERENCES students(student_id),FOREIGN KEY(examcode) REFERENCES exam_data(examcode));");
         }
         catch(err)
         {
@@ -25,8 +28,9 @@ class exam
             
         try
         {
-            const result= await db.execute("drop table exam_details;");
+            const result= await db.execute("drop table student_exam_details;");
             const result1= await db.execute("drop table students;");
+            const result2=await db.execute("drop table exam_data;");
             console.log("final table dropped")
         }
         catch(err)
@@ -60,7 +64,7 @@ class exam
 async function tester()
 {
     let obj= new exam();
-    //await obj.delete_tables();
+    await obj.delete_tables();
     await obj.create_tables();
     await obj.insert_into_students_static();
     await obj.close_db();
