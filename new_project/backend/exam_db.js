@@ -13,9 +13,11 @@ class exam
         {
             const result1 = await db.execute("CREATE TABLE `my_db`.`students` (`student_id` INT NOT NULL AUTO_INCREMENT,`Name` VARCHAR(45) NOT NULL,`email` VARCHAR(45) NOT NULL,`password` VARCHAR(45) NOT NULL,PRIMARY KEY(student_id),UNIQUE INDEX idstudent_UNIQUE(student_id ASC) VISIBLE);");
 
-            const result2 = await db.execute("CREATE TABLE `my_db`.`exam_data` (`examcode` VARCHAR(45) NOT NULL, `seatno` VARCHAR(45) NOT NULL, `status` INT NOT NULL ,PRIMARY KEY(examcode,seatno));");
+            const result = await db.execute("CREATE TABLE `my_db`.`student_exam_details` (`exam_id` INT NOT NULL AUTO_INCREMENT,`student_id` INT NOT NULL,`Name` VARCHAR(45) NOT NULL,`Age` INT NOT NULL,`DOB` DATE NOT NULL,`Phone_no` VARCHAR(45) NOT NULL,`Address` VARCHAR(45) NOT NULL,`subject` VARCHAR(45) NOT NULL ,`Venue` VARCHAR(45) NOT NULL,`Exam_Date` DATE NOT NULL,`examcode` VARCHAR(45) NOT NULL,`seatno` VARCHAR(45) NOT NULL,`venue_id` NOT NULL,PRIMARY KEY (exam_id),FOREIGN KEY(student_id) REFERENCES students(student_id),FOREIGN KEY(venue_id) REFERENCES venue_data(venue_id));");
+            
+            const result3 = await db.execute("CREATE TABLE `my_db`.`venue_data` (`venue_id` VARCHAR(45) NOT NULL,`venue` VARCHAR(45) NOT NULL,`no_of_seats` INT NOT NULL,PRIMARY KEY(venue_id));");
 
-            const result = await db.execute("CREATE TABLE `my_db`.`student_exam_details` (`student_id` INT NOT NULL,`Name` VARCHAR(45) NOT NULL,`Age` INT NOT NULL,`DOB` DATE NOT NULL,`Phone_no` VARCHAR(45) NOT NULL,`Address` VARCHAR(45) NOT NULL,`subject` VARCHAR(45) NOT NULL ,`Venue` VARCHAR(45) NOT NULL,`Exam_Date` DATE NOT NULL,`examcode` VARCHAR(45) NOT NULL,`seatno` VARCHAR(45) NOT NULL,PRIMARY KEY (student_id,examcode),FOREIGN KEY(student_id) REFERENCES students(student_id),FOREIGN KEY(examcode) REFERENCES exam_data(examcode));");
+       
         }
         catch(err)
         {
