@@ -76,3 +76,35 @@ exports.studenthome = (req, res) => {
 	});
 }
 
+exports.deletestudent = (req, res) => {
+    let x;
+
+	const fetchData = callback => {
+		const promise = new Promise(async (resolve, reject) => {
+			
+			try {
+				let x = await db.execute("delete from students where student_id = ?;", [req.body['id']]);
+				resolve(x[0]);
+			} catch (err) {
+				reject(err);
+			}
+
+		});
+		return promise;		
+	};
+
+	fetchData().then(data => {
+
+		if (x == undefined) {
+			console.log("User not found");
+			res.status(200).json({"error":"no user"});
+		} else {
+			console.log("User found!");
+			res.status(200).json({"error":"none"});
+		}
+
+	}, err => {
+		console.log(err);
+	});
+}
+
