@@ -62,14 +62,7 @@ class App extends Component {
             }}
             
           />
-          <Route
-            path="/examregistration"
-            exact
-            render={(props) => {
-              return <ExamRegistration />;
-            }}
-
-          />
+          
           
           {/* <Route
             path="/login/teacher"
@@ -86,7 +79,14 @@ class App extends Component {
               return <StudentHome {...props}  />;
             }}
           />
-          
+          <Route
+            path="/student/examregistration/:s_id"
+            exact
+            render={(props) => {
+              return <ExamRegistration {...props} />;
+            }}
+
+          />
           {/* <Route
             path="/patient/:p_id"
             exact

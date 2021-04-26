@@ -48,38 +48,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function StudentHome(props) {
+  let x;
+
   const classes = useStyles();
 
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
 
   let id = props.match.params.s_id;
-  console.log(id);
+  console.log(id); 
 
-  let x;
+  const handle_exam_submit = (e) => {
+    window.location.href = "./examregistration/" + id;
+  };
 
-  const fetchData = callback => {
-    const promise = new Promise(async (resolve, reject) => {
-			
-			try {
-				let x = await axios.post("http://localhost:5000/studenthome",{
-          id: id
-        });
-				resolve(x);
-			} catch (err) {
-				reject(err);
-			}
-
-		});
-		return promise;		
-  }
-
-  fetchData().then(data => {
-		x = data.data.student;
-    console.log(x);
-	}, err => {
-		console.log(err);
-	});
+  //  const handle_exam_submit = e => {
+  //    window.location.href = "www.google.com";
+  //  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -91,8 +76,8 @@ export default function StudentHome(props) {
         <Typography component="h1" variant="h5">
           Student Home
         </Typography>
-        <Typography component="h2" variant="h5">
-          Welcome
+        <Typography name="modify" component="h2" variant="h5">
+          {x}
         </Typography>
        
           <Button
@@ -101,7 +86,7 @@ export default function StudentHome(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            // onClick={handle_submit}
+            onClick={handle_exam_submit}
           >
             Register for Exam
           </Button>
@@ -112,7 +97,7 @@ export default function StudentHome(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            // onClick={handle_submit}
+            // onClick={handle_exam_submit}
           >
            Registration Status
           </Button>
