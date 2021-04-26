@@ -1,2 +1,4 @@
 node_modules
 sql_test.js
+package.json
+package-lock.json
