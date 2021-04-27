@@ -6,25 +6,25 @@ const test_controller = require("./testController");
 
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }))
- 
+
 app.use(bodyParser.json())
 
 
 var path = require("path");
 const port = 5000;
 
-app.use((req,res,next)=>{
-    res.header('Access-Control-Allow-Origin','*');
-    res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type ,Accept,Authorisation');
-    if (req.method === 'OPTIONS') {
-        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-        return res.status(200).json({});
-    }
-    next();
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type ,Accept,Authorisation');
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+    return res.status(200).json({});
+  }
+  next();
 })
 
-app.post("/registerstudent", (req, res) => {  
-	test_controller.add_student(req.body);
+app.post("/registerstudent", (req, res) => {
+  test_controller.add_student(req.body);
 });
 
 app.post("/loginstudent", test_controller.loginstudent);
@@ -54,8 +54,6 @@ app.post("/rescheduleexam", test_controller.reschedule_exam);
 app.post("/examidsofstudent", test_controller.examidsofstudent);
 
 app.post("/modifyseating", test_controller.modifyseating);
-
-
 
 app.listen(port, () => {
   console.log("Server running!");
