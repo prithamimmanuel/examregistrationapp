@@ -14,6 +14,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from "axios";
 
+
+
 const useStyles = makeStyles((theme) => ({
     paper: {
       marginTop: theme.spacing(8),
@@ -37,7 +39,13 @@ const useStyles = makeStyles((theme) => ({
 export default function ExamOptions(props) {
     const classes = useStyles();
     console.log("props= ",props.match.params.exam_id);
+    let s_id = props.match.params.s_id
     let exam_id=props.match.params.exam_id
+
+  const handle_hall = (e) => {
+    window.location.href = "./hallticket/" + exam_id;
+  };
+
     const handle_pay = (e) => {
     e.preventDefault();
     axios
@@ -64,7 +72,7 @@ export default function ExamOptions(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            // onClick={handle_submit}
+            onClick={handle_hall}
           >
             Download Hall Ticket
           </Button>
