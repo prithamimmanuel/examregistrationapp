@@ -53,7 +53,7 @@ app.post("/rescheduleexam", test_controller.reschedule_exam);
 
 app.post("/examidsofstudent", test_controller.examidsofstudent);
 
-
+app.post("/modifyseating", test_controller.modifyseating);
 
 app.listen(port, () => {
   console.log("Server running!");

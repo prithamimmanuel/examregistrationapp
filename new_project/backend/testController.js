@@ -549,3 +549,65 @@ exports.reschedule_exam = (req, res) => {
 		console.log(err);
 	});
 }
+
+exports.modifyseating = (req, res) => {
+    let x;
+
+	const fetchData = callback => {
+		const promise = new Promise(async (resolve, reject) => {
+			
+			try {
+				
+				let x = await db.execute("select * from student_exam_details where exam_id = ?;", [req.body['exam_id']]);
+				x = x[0][0];
+				console.log(x);
+
+				let venue = await db.execute("select * from venue_data where venue = ?;", [x['Venue']]);
+				venue = venue[0][0];
+				console.log(venue);
+				let venue_size = venue['no_of_seats'];
+				console.log(venue_size);
+
+				let same_exams = await db.execute("select * from student_exam_details where venue = ? and exam_date = ?;", [x['Venue'], x['Exam_Date']]);
+				same_exams = same_exams[0];
+				console.log(same_exams);
+
+				let seats = [];
+				for (exam in same_exams) {
+					seats.push(parseInt(same_exams[exam]['seatno']));
+				}
+
+				console.log(seats);
+
+				if (seats.includes(req.body["new_seat"]) == true) {
+					resolve("seat already taken");
+				} else {
+					let y = await db.execute("update student_exam_details set seatno = ? where exam_id = ?;", [req.body['new_seat'], req.body['exam_id']]);
+					resolve([]);
+				}
+
+			// 	x = await db.execute("update student_exam_details set Exam_Date = ? where exam_id = ?;", [req.body['new_date'], req.body['exam_id']]);
+			// 	resolve([]);
+
+			} catch (err) {
+				reject(err);
+			}
+
+		});
+		return promise;		
+	};
+
+	fetchData().then(data => {
+		x = data;
+		if (x == undefined || x == "seat already taken") {
+			console.log("seat change not done!");
+			res.status(200).json({"error":"no rescheduling"});
+		} else {
+			console.log("seat change done!");
+			res.status(200).json({"error":"none"});
+		}
+
+	}, err => {
+		console.log(err);
+	});
+}
