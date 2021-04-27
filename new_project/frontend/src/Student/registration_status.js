@@ -52,6 +52,7 @@ export default function RegistrationStatus() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [dropClick, setdropClick] = useState(false);
   console.log("reached");
 
   const handle_submit = (e) => {
@@ -72,8 +73,26 @@ export default function RegistrationStatus() {
       .catch((err) => console.log(err));
   };
 
+  const showExam = ()=>{
+    let obj;
+    if (dropClick){
+      obj = (<div>
+        <ul>
+          <li>1</li>
+          <li>2</li>
+          <li>3</li>
+        </ul>
+      </div>)
+    } 
+    else{
+      obj=<div></div>
+    } 
+    return obj;
+  }
+
+  let obj = showExam();
   return (
-    <Container component="main" maxWidth="xs">
+     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -100,6 +119,17 @@ export default function RegistrationStatus() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={()=>{setdropClick(true);}}
+          >
+            Show Exam List
+          </Button>
+          {obj}
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
             onClick={handle_submit}
           >
             Reschedule Exam
@@ -115,6 +145,7 @@ export default function RegistrationStatus() {
           >
             Pay Registration Fee
           </Button>
+
       </div>
       <Box mt={8}>
         <Copyright />

@@ -65,11 +65,10 @@ class exam
 async function tester()
 {
     let obj= new exam();
-    await obj.delete_tables();
-    await obj.create_tables();
+    //await obj.delete_tables();
+    //await obj.create_tables();
     await obj.insert_into_students_static();
     await obj.close_db();
 }
-
 
 

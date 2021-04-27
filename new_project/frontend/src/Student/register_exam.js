@@ -8,6 +8,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
+import NativeSelect from '@material-ui/core/NativeSelect';
+
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -179,31 +181,34 @@ export default function ExamRegistration(props) {
                         <Select
                             labelId="Subject"
                             id="subject_id"
+                            value={subject}
                             onChange={(e) => setSubject(e.target.value)}
                         >
-                            <MenuItem >GRE</MenuItem>
-                            <MenuItem >GMAT</MenuItem>
-                            <MenuItem >IELTS</MenuItem>
-                            <MenuItem >TOEFL</MenuItem>
+                            <MenuItem value = "GRE">GRE</MenuItem>
+                            <MenuItem value = "GMAT">GMAT</MenuItem>
+                            <MenuItem value = "IELTS">IELTS</MenuItem>
+                            <MenuItem value = "TOEFL">TOEFL</MenuItem>
                         </Select>
                     </FormControl>
                     <p> Enter Venue:</p>
+                    
                     <FormControl className={classes.formControl}>
                         <InputLabel id="Venue"></InputLabel>
                         <Select
                             labelId="Venue"
                             id="venue_id"
+                            value={venue}
                             onChange={(e) => setVenue(e.target.value)}
                         >
-                            <MenuItem >Chennai-T Nagar</MenuItem>
-                            <MenuItem >Chennai-KK Nagar</MenuItem>
-                            <MenuItem >Chennai-Mylapore</MenuItem>
-                            <MenuItem >Mumbai-Juhu</MenuItem>
-                            <MenuItem >Mumbai-Bandra</MenuItem>
-                            <MenuItem >Mumbai-Andheri West</MenuItem>
-                            <MenuItem >Delhi-Patel Nagar</MenuItem>
-                            <MenuItem >Delhi-Maya Nagar</MenuItem>
-                            <MenuItem >Delhi-Lajpat Nagar</MenuItem>
+                            <MenuItem value="Chennai-T Nagar">Chennai-T Nagar</MenuItem>
+                            <MenuItem value="Chennai-KK Nagar">Chennai-KK Nagar</MenuItem>
+                            <MenuItem value="Chennai-Mylapore">Chennai-Mylapore</MenuItem>
+                            <MenuItem value="Chennai-Juhu">Mumbai-Juhu</MenuItem>
+                            <MenuItem value="Mumbai-Bandra">Mumbai-Bandra</MenuItem>
+                            <MenuItem value="Mumbai-Andheri West">Mumbai-Andheri West</MenuItem>
+                            <MenuItem value="Delhi-Patel Nagar">Delhi-Patel Nagar</MenuItem>
+                            <MenuItem value="Delhi-Maya Nagar">Delhi-Maya Nagar</MenuItem>
+                            <MenuItem value="Delhi-Lajpat Nagar">Delhi-Lajpat Nagar</MenuItem>
                         </Select>
                     </FormControl>
                     <p> Enter Prefered Date of Examination:</p>

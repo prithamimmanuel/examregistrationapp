@@ -3,8 +3,8 @@ create table students (
     name varchar(255) not null,
     email varchar(255) not null,
     password varchar(255) not null,
-    primary key(student_id);
-)
+    primary key(student_id));
+
 
 CREATE TABLE student_exam_details (
     exam_id INT NOT NULL AUTO_INCREMENT,
@@ -37,6 +37,10 @@ CREATE TABLE venue_data (
 insert into venue_data (venue, no_of_seats) values ( , );
 
 // let y = await db.execute("insert into student_exam_details (student_id, name, age, phone_no, address, subject, venue, exam_date, seatno, venue_id) where student_id = ?;", [req.body['id']]);
+
+insert into venue_data (venue, no_of_seats) values ("Chennai-T Nagar" ,30 );
+insert into venue_data (venue, no_of_seats) values ("Chennai-T Nagar" ,30 );
+
 
 1	Chennai-T Nagar	30
 2	Chennai-KK Nagar	30
