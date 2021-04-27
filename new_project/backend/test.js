@@ -35,21 +35,9 @@ app.use((req,res,next)=>{
     next();
 })
 
-// STUDENT REGISTRATION 
-
-app.post("/registerstudent", (req, res) => {
-  
-
-
-	// add req.body details to mongodb
-	add_student.add_student(req.body);
-
-	//do sql shit with fields.name (name currospionds to html)
-
-
+app.post("/registerstudent", (req, res) => {  
+	test_controller.add_student(req.body);
 });
-
-// MAKING LOGINS 
 
 app.post("/loginstudent", test_controller.loginstudent);
 
@@ -61,26 +49,8 @@ app.post("/getallstudents", test_controller.getallstudents);
 
 app.post("/registerexam", (req, res) => {
 	console.log(req.body);
-	//check the db for (req.password) and req.username
-
 	res.status(200).json({"error":"none"});
 });
-
-app.post("/loginadmin", (req, res) => {
-	console.log(req.body.email);
-	//use same hash function on req.password
-	//check the db for hashed(req.pw) and req.username
-
-
-	//if username incorrect 
-	// res.status(200).json({"error":"incorrect username"});
-	// //if pw incorrect 
-	// res.status(200).json({"error":"incorrect password"});
-	// else 
-	res.status(200).json({"error":"none"});
-});
-
-
 
 app.listen(port, () => {
   console.log("Server running!");
