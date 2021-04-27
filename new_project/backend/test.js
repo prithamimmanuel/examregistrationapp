@@ -35,11 +35,22 @@ app.post("/deletestudent", test_controller.deletestudent);
 
 app.post("/getallstudents", test_controller.getallstudents);
 
+app.post("/examdetails", test_controller.exam_details);
+
 app.post("/examregistration", test_controller.insert_student_details);
 
 app.post("/getallvenues", test_controller.getallvenues);
 
 app.post("/seatsforvenueanddate", test_controller.seatsforvenueanddate);
+
+app.post("/payforexam", test_controller.payforexam);
+
+app.post("/allexamsstudentiswriting", test_controller.allexamsstudentiswriting);
+
+// app.post("/rescheduleexam", test_controller.reschedule_exam);
+
+
+
 
 app.listen(port, () => {
   console.log("Server running!");

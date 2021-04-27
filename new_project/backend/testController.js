@@ -211,7 +211,7 @@ exports.insert_student_details = (req, res) => {
 						resolve("no seats available");
 					}
 
-					let y = await db.execute("insert into student_exam_details (student_id, name, age, phone_no, address, subject, venue, exam_date, seatno, venue_id, DOB, paid) values(?,?,?,?,?,?,?,?,?,?,?,?);", [req.body['id'], req.body['name'], req.body['age'], req.body['phoneno'], req.body['address'], req.body['subject'], req.body['venue'], req.body['DOE'], newseat, venue['venue_id'], req.body['DOB'], "unpaid"]);
+					let y = await db.execute("insert into student_exam_details (student_id, name, age, phone_no, address, subject, venue, exam_date, seatno, venue_id, DOB, paid) values(?,?,?,?,?,?,?,?,?,?,?,?);", [req.body['id'], req.body['name'], req.body['age'], req.body['phoneno'], req.body['address'], req.body['subject'], req.body['venue'], req.body['DOE'], newseat, venue['venue_id'], req.body['DOB'], "UNPAID"]);
 
 				}
 
@@ -316,3 +316,157 @@ exports.seatsforvenueanddate = (req, res) => {
 		console.log(err);
 	});
 }
+
+exports.payforexam = (req, res) => {
+    let x;
+	// console.log(req.body);
+	const fetchData = callback => {
+		const promise = new Promise(async (resolve, reject) => {
+			
+			try {
+				let x = await db.execute("update student_exam_details set paid = \"PAID\" where student_id = ? and exam_id = ?;", [req.body['student_id'], req.body['exam_id']]);
+				x = await db.execute("select * from student_exam_details where student_id = ? and exam_id = ?;", [req.body['student_id'], req.body['exam_id']]);
+				resolve(x[0]);
+			} catch (err) {
+				reject(err);
+			}
+
+		});
+		return promise;		
+	};
+
+	fetchData().then(data => {
+		x = data;
+		if (x == undefined) {
+			console.log("no payment");
+			res.status(200).json({"error":"empty seats"});
+		} else {
+			console.log("payment done!");
+			res.status(200).json({"error":"none", payment: x});
+		}
+
+	}, err => {
+		console.log(err);
+	});
+}
+
+exports.allexamsstudentiswriting = (req, res) => {
+    let x;
+
+	const fetchData = callback => {
+		const promise = new Promise(async (resolve, reject) => {
+			
+			try {
+				let x = await db.execute("select * from student_exam_details where student_id = ?;", [req.body['student_id']]);
+				resolve(x[0]);
+			} catch (err) {
+				reject(err);
+			}
+
+		});
+		return promise;		
+	};
+
+	fetchData().then(data => {
+		x = data;
+		if (x == undefined) {
+			console.log("no payment");
+			res.status(200).json({"error":"empty seats"});
+		} else {
+			console.log("payment done!");
+			res.status(200).json({"error":"none", students_exams: x});
+		}
+
+	}, err => {
+		console.log(err);
+	});
+}
+
+exports.exam_details = (req, res) => {
+    let x;
+
+	const fetchData = callback => {
+		const promise = new Promise(async (resolve, reject) => {
+			
+			try {
+				let x = await db.execute("select * from student_exam_details where exam_id = ?;", [req.body['exam_id']]);
+				resolve(x[0]);
+			} catch (err) {
+				reject(err);
+			}
+
+		});
+		return promise;		
+	};
+
+	fetchData().then(data => {
+		x = data;
+		if (x == undefined) {
+			console.log("no exam");
+			res.status(200).json({"error":"no exam"});
+		} else {
+			console.log("yes exam");
+			res.status(200).json({"error":"none", exam: x});
+		}
+
+	}, err => {
+		console.log(err);
+	});
+}
+
+// exports.reschedule_exam = (req, res) => {
+//     let x;
+
+// 	const fetchData = callback => {
+// 		const promise = new Promise(async (resolve, reject) => {
+			
+// 			try {
+// 				// let x = await db.execute("select * from student_exam_details where student_id = ?;", [req.body['student_id']]);
+
+// 				let same_exams = await db.execute("select * from student_exam_details where venue = ? and exam_date = ?;", [req.body['venue'], req.body['new_date']]);
+// 				same_exams = same_exams[0];
+// 				console.log(same_exams);
+
+// 				// let seats = [];
+// 				// for (exam in same_exams) {
+// 				// 	seats.push(exam['seatno']);
+// 				// }
+
+// 				// console.log(seats);
+
+// 				// let newseat;
+// 				// let i = 1;
+// 				// while(i <= venue_size) {
+// 				// 	if (seats.includes(i) == false) {
+// 				// 		newseat = i;
+// 				// 		break;
+// 				// 	}
+// 				// }
+				
+// 				// if (newseat == undefined) {
+// 				// 	resolve("no seats available");
+// 				// }
+
+// 				resolve(undefined);
+// 			} catch (err) {
+// 				reject(err);
+// 			}
+
+// 		});
+// 		return promise;		
+// 	};
+
+// 	fetchData().then(data => {
+// 		x = data;
+// 		if (x == undefined) {
+// 			console.log("no payment");
+// 			res.status(200).json({"error":"empty seats"});
+// 		} else {
+// 			console.log("payment done!");
+// 			res.status(200).json({"error":"none", students_exams: x});
+// 		}
+
+// 	}, err => {
+// 		console.log(err);
+// 	});
+// }

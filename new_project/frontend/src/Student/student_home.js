@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -51,12 +51,25 @@ export default function StudentHome(props) {
   let x;
 
   const classes = useStyles();
+  
+  let id = props.match.params.s_id;
+  console.log(id); 
+  // const [name,setName] = useState("");
+
+  // useEffect(()=>{
+  //   axios.post('http://localhost:5000/studenthome',{
+  //     id:id
+  //   })
+  //   .then((res)=>{
+  //     setName(res.data.student.name);
+  //   })
+  //   .catch((e)=>console.log("ERROR: ",e));
+  // })
 
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
 
-  let id = props.match.params.s_id;
-  console.log(id); 
+  
 
   const handle_exam_submit = (e) => {
     window.location.href = "./examregistration/" + id;
@@ -97,7 +110,7 @@ export default function StudentHome(props) {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Student Home
+          Welcome {name} !
         </Typography>
         <Typography name="modify" component="h2" variant="h5">
           {x}
