@@ -47,6 +47,8 @@ app.post("/payforexam", test_controller.payforexam);
 
 app.post("/allexamsstudentiswriting", test_controller.allexamsstudentiswriting);
 
+app.post("/deleteregistration", test_controller.deleteregistration);
+
 // app.post("/rescheduleexam", test_controller.reschedule_exam);
 
 

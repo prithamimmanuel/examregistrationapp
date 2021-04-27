@@ -110,7 +110,7 @@ export default function StudentHome(props) {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Welcome {name} !
+          Welcome !
         </Typography>
         <Typography name="modify" component="h2" variant="h5">
           {x}

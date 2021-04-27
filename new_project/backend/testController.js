@@ -324,8 +324,8 @@ exports.payforexam = (req, res) => {
 		const promise = new Promise(async (resolve, reject) => {
 			
 			try {
-				let x = await db.execute("update student_exam_details set paid = \"PAID\" where student_id = ? and exam_id = ?;", [req.body['student_id'], req.body['exam_id']]);
-				x = await db.execute("select * from student_exam_details where student_id = ? and exam_id = ?;", [req.body['student_id'], req.body['exam_id']]);
+				let x = await db.execute("update student_exam_details set paid = \"PAID\" where exam_id = ?;", [req.body['exam_id']]);
+				x = await db.execute("select * from student_exam_details where exam_id = ?;", [req.body['exam_id']]);
 				resolve(x[0]);
 			} catch (err) {
 				reject(err);
@@ -339,7 +339,7 @@ exports.payforexam = (req, res) => {
 		x = data;
 		if (x == undefined) {
 			console.log("no payment");
-			res.status(200).json({"error":"empty seats"});
+			res.status(200).json({"error":"not paid"});
 		} else {
 			console.log("payment done!");
 			res.status(200).json({"error":"none", payment: x});
@@ -410,6 +410,33 @@ exports.exam_details = (req, res) => {
 		}
 
 	}, err => {
+		console.log(err);
+	});
+}
+
+exports.deleteregistration = (req, res) => {
+    let x;
+
+	const fetchData = callback => {
+		const promise = new Promise(async (resolve, reject) => {
+			
+			try {
+				let x = await db.execute("delete from student_exam_details where exam_id = ?;", [req.body['exam_id']]);
+				resolve(x[0]);
+			} catch (err) {
+				reject(err);
+			}
+
+		});
+		return promise;		
+	};
+
+	fetchData().then(data => {
+
+		res.status(200).json({"error": "exam deleted"});
+
+	}, err => {
+		res.status(200).json({"error": "exam may not be deleted"});
 		console.log(err);
 	});
 }
