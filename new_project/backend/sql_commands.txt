@@ -19,6 +19,7 @@ CREATE TABLE student_exam_details (
     Exam_Date VARCHAR(45) NOT NULL,
     seatno VARCHAR(45) NOT NULL,
     venue_id INT NOT NULL,
+    paid VARCHAR(45) NOT NULL,
     PRIMARY KEY (exam_id),
     FOREIGN KEY(student_id) REFERENCES students(student_id),
     FOREIGN KEY(venue_id) REFERENCES venue_data(venue_id)
@@ -36,3 +37,13 @@ CREATE TABLE venue_data (
 insert into venue_data (venue, no_of_seats) values ( , );
 
 // let y = await db.execute("insert into student_exam_details (student_id, name, age, phone_no, address, subject, venue, exam_date, seatno, venue_id) where student_id = ?;", [req.body['id']]);
+
+1	Chennai-T Nagar	30
+2	Chennai-KK Nagar	30
+3	Chennai-Mylapore	50
+4	Mumbai-Juhu	50
+5	Mumbai-Bandra	40
+6	Mumbai-Andheri West	70
+7	Delhi-Patel Nagar	25
+8	Delhi-Maya Nagar	25
+9	Delhi-Lajpat Nagar	100

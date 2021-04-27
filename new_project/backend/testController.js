@@ -211,7 +211,7 @@ exports.insert_student_details = (req, res) => {
 						resolve("no seats available");
 					}
 
-					let y = await db.execute("insert into student_exam_details (student_id, name, age, phone_no, address, subject, venue, exam_date, seatno, venue_id, DOB) values(?,?,?,?,?,?,?,?,?,?,?);", [req.body['id'], req.body['name'], req.body['age'], req.body['phoneno'], req.body['address'], req.body['subject'], req.body['venue'], req.body['DOE'], newseat, venue['venue_id'], req.body['DOB']]);
+					let y = await db.execute("insert into student_exam_details (student_id, name, age, phone_no, address, subject, venue, exam_date, seatno, venue_id, DOB, paid) values(?,?,?,?,?,?,?,?,?,?,?,?);", [req.body['id'], req.body['name'], req.body['age'], req.body['phoneno'], req.body['address'], req.body['subject'], req.body['venue'], req.body['DOE'], newseat, venue['venue_id'], req.body['DOB'], "unpaid"]);
 
 				}
 
@@ -274,6 +274,42 @@ exports.getallvenues =  (req, res) => {
 		} else {
 			console.log("all good");
 			res.status(200).json({"error":"none", venues: x});
+		}
+
+	}, err => {
+		console.log(err);
+	});
+}
+
+exports.seatsforvenueanddate = (req, res) => {
+    let x;
+
+	const fetchData = callback => {
+		const promise = new Promise(async (resolve, reject) => {
+			
+			try {
+				// let x = await db.execute("delete from students where student_id = ?;", [req.body['id']]);
+				// resolve(x[0]);
+
+				let same_exams = await db.execute("select * from student_exam_details where venue = ? and exam_date = ?;", [req.body['venue'], req.body['DOE']]);
+				same_exams = same_exams[0];
+				resolve(same_exams);
+			} catch (err) {
+				reject(err);
+			}
+
+		});
+		return promise;		
+	};
+
+	fetchData().then(data => {
+		x = data;
+		if (x == undefined) {
+			console.log("No seats occupied.");
+			res.status(200).json({"error":"empty seats"});
+		} else {
+			console.log("User found!");
+			res.status(200).json({"error":"none", seats: x});
 		}
 
 	}, err => {
