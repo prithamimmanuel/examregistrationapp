@@ -2,29 +2,17 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 
-const add_student = require("./add_student");
-const show_student = require("./show_student");
 const test_controller = require("./testController");
-const db=require("./sql_test.js");
-
 
 var bodyParser = require("body-parser");
-// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
  
-// parse application/json
 app.use(bodyParser.json())
 
-// var mongoDB = 'mongodb+srv://ssnboys:ssn123@examcluster.fldga.mongodb.net/exam_database?retryWrites=true&w=majority';
-// mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true});
-// var db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-// var multiparty = require("multiparty");
 var path = require("path");
 const port = 5000;
 
-//handling CORS errors
 app.use((req,res,next)=>{
     res.header('Access-Control-Allow-Origin','*');
     res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type ,Accept,Authorisation');
