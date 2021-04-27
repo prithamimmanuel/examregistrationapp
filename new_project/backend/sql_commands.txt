@@ -1,9 +1,32 @@
-create table students {
+create table students (
     student_id int not null auto_increment,
     name varchar(255) not null,
     email varchar(255) not null,
     password varchar(255) not null,
     primary key(student_id);
-}
+)
 
+CREATE TABLE student_exam_details (
+    exam_id INT NOT NULL AUTO_INCREMENT,
+    student_id INT NOT NULL,
+    Name VARCHAR(45) NOT NULL,
+    Age INT NOT NULL,DOB DATE NOT NULL,
+    Phone_no VARCHAR(45) NOT NULL,
+    Address VARCHAR(45) NOT NULL,
+    subject VARCHAR(45) NOT NULL ,
+    Venue VARCHAR(45) NOT NULL,
+    Exam_Date DATE NOT NULL,
+    examcode VARCHAR(45) NOT NULL,
+    seatno VARCHAR(45) NOT NULL,
+    venue_id INT NOT NULL,
+    PRIMARY KEY (exam_id),
+    FOREIGN KEY(student_id) REFERENCES students(student_id),
+    FOREIGN KEY(venue_id) REFERENCES venue_data(venue_id)
+);
 
+CREATE TABLE venue_data (
+    venue_id INT NOT NULL AUTO_INCREMENT,
+    venue VARCHAR(45) NOT NULL,
+    no_of_seats INT NOT NULL,
+    PRIMARY KEY(venue_id)
+);

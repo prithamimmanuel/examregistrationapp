@@ -147,3 +147,4 @@ exports.getallstudents = (req, res) => {
 		console.log(err);
 	});
 }
+
