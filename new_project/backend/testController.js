@@ -196,6 +196,8 @@ exports.insert_student_details = (req, res) => {
 
 					console.log(seats);
 
+					console.log(seats.includes(1))
+
 					let newseat;
 					let i = 1;
 					while (i <= venue_size) {
@@ -203,6 +205,7 @@ exports.insert_student_details = (req, res) => {
 							newseat = i;
 							break;
 						}
+						i++;
 					}
 
 					if (newseat == undefined) {

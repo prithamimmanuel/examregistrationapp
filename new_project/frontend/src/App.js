@@ -5,6 +5,7 @@ import RegisterStudent from "./Login/register_student";
 import LoginAdmin from "./Login/login_admin";
 import AdminHome from "./Admin/admin_home";
 import ViewSeating from "./Admin/view_seating";
+import Deleteexam from "./Admin/cancel_exam_registration";
 import StudentHome from "./Student/student_home";
 import RegistrationStatus from "./Student/registration_status";
 import ExamRegistration from "./Student/register_exam";
@@ -57,6 +58,16 @@ class App extends Component {
               return <ViewSeating />;
             }}
           />
+
+          <Route
+            path="/admin/deleteregistration"
+            exact
+            render={(props) => {
+              return <Deleteexam />;
+            }}
+          />
+
+
           <Route
             path="/examoptions/:s_id/:exam_id"
             exact

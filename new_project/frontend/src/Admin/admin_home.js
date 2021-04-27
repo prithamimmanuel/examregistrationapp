@@ -76,6 +76,10 @@ export default function LoginAdmin() {
     window.location.href="./viewseating"
   }
 
+  const handle_delete = (e) => {
+    window.location.href="./deleteregistration"
+  }
+
   const handle_all_students = (e) => {
     e.preventDefault();
     console.log("reached all students");
@@ -133,7 +137,7 @@ export default function LoginAdmin() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={handle_submit}
+            onClick={handle_delete}
           >
             Cancel Registration
           </Button>
