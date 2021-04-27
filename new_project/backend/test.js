@@ -51,6 +51,10 @@ app.post("/deleteregistration", test_controller.deleteregistration);
 
 app.post("/rescheduleexam", test_controller.reschedule_exam);
 
+app.post("/examidsofstudent", test_controller.examidsofstudent);
+
+
+
 app.listen(port, () => {
   console.log("Server running!");
 });

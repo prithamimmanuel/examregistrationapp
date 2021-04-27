@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import {useParams} from 'react-router-dom'
+import ExamListMaker from './examlist.js'
 import axios from "axios";
 
 function Copyright() {
@@ -49,23 +51,26 @@ const useStyles = makeStyles((theme) => ({
 
 export default function RegistrationStatus() {
   const classes = useStyles();
-
+  const studentId = useParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [dropClick, setdropClick] = useState(false);
-  console.log("reached");
+  const [examIdList,setexamIdList] = useState([]);
+  const [index,setIndex] = useState(0);
 
-  const handle_submit = (e) => {
-    e.preventDefault();
-    console.log("reached");
+
+  const getExamIds = () => {
+    
+    console.log("reached getExamIds");
     axios
-      .post("http://localhost:5000/registrationstatus",{
-        email: email,
-        password: password,
+      .post("http://localhost:5000/examidsofstudent",{
+        student_id:studentId.s_id
       })
       .then((res) => {
         if (res.data.error === "none") {
           console.log("response", res);
+          setexamIdList(res.data.students_exams);
+          // console.log(examIdList);
         } else {
           alert("ERROR ", res.data.error);
         }
@@ -74,15 +79,18 @@ export default function RegistrationStatus() {
   };
 
   const showExam = ()=>{
+    console.log(examIdList);
     let obj;
+    // let displayList = [];
+    let displayString = "";
     if (dropClick){
-      obj = (<div>
-        <ul>
-          <li>1</li>
-          <li>2</li>
-          <li>3</li>
-        </ul>
-      </div>)
+      // for(let i=0;i<examIdList.length;i++){
+      //   // displayList.push(`${i+1}.${examIdList[i]}`);
+      //   displayString = displayString + `${i+1}.${examIdList[i]}\n`
+      // }
+      obj = <ExamListMaker id_list={examIdList} student_id={studentId.s_id}/>;
+      // console.log("obj_wrapper: ",obj)
+
     } 
     else{
       obj=<div></div>
@@ -101,50 +109,20 @@ export default function RegistrationStatus() {
         <Typography component="h1" variant="h5">
           Registration status
         </Typography>
-       
-          <Button
+
+        <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={handle_submit}
-          >
-            Download Hall Ticket
-          </Button>
-          <br></br>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={()=>{setdropClick(true);}}
+            onClick={()=>{getExamIds();setdropClick(true);}}
           >
             Show Exam List
           </Button>
           {obj}
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={handle_submit}
-          >
-            Reschedule Exam
-          </Button>
-          <br></br>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={handle_submit}
-          >
-            Pay Registration Fee
-          </Button>
+          {/* setdropClick(true); */}
+          
 
       </div>
       <Box mt={8}>

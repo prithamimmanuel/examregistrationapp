@@ -382,6 +382,44 @@ exports.allexamsstudentiswriting = (req, res) => {
 	});
 }
 
+exports.examidsofstudent = (req, res) => {
+	let x;
+
+	const fetchData = callback => {
+		const promise = new Promise(async (resolve, reject) => {
+
+			try {
+				let x = await db.execute("select exam_id from student_exam_details where student_id = ?;", [req.body['student_id']]);
+				resolve(x[0]);
+			} catch (err) {
+				reject(err);
+			}
+
+		});
+		return promise;
+	};
+
+	fetchData().then(data => {
+		x = data;
+		let idlist=[];
+		for (element in x)
+		{
+			idlist.push(x[element].exam_id);
+		}
+		console.log("x = ",x);
+		if (x == undefined) {
+			console.log("no payment");
+			res.status(200).json({ "error": "empty seats" });
+		} else {
+			console.log("payment done!");
+			res.status(200).json({ "error": "none", students_exams: idlist });
+		}
+
+	}, err => {
+		console.log(err);
+	});
+}
+
 exports.exam_details = (req, res) => {
     let x;
 
