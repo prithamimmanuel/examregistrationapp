@@ -452,6 +452,38 @@ exports.exam_details = (req, res) => {
 	});
 }
 
+exports.viewpayment = (req, res) => {
+	let x;
+
+	const fetchData = callback => {
+		const promise = new Promise(async (resolve, reject) => {
+
+			try {
+				let x = await db.execute("select paid from student_exam_details where exam_id = ?;", [req.body['exam_id']]);
+				resolve(x[0]);
+			} catch (err) {
+				reject(err);
+			}
+
+		});
+		return promise;
+	};
+
+	fetchData().then(data => {
+		x = data;
+		if (x == undefined) {
+			console.log("no exam");
+			res.status(200).json({ "error": "no exam" });
+		} else {
+			console.log("yes exam");
+			res.status(200).json({ "error": "none", exam: x });
+		}
+
+	}, err => {
+		console.log(err);
+	});
+}
+
 exports.deleteregistration = (req, res) => {
 	let x;
 

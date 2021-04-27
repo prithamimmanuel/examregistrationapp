@@ -80,6 +80,11 @@ export default function LoginAdmin() {
     window.location.href="./deleteregistration"
   }
 
+  const handle_payment = (e) => {
+    window.location.href = "./viewpayment"
+
+  }
+
   const handle_all_students = (e) => {
     e.preventDefault();
     console.log("reached all students");
@@ -148,7 +153,7 @@ export default function LoginAdmin() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={handle_submit}
+            onClick={handle_payment}
           >
             Review Payment Status
           </Button>

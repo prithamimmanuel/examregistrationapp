@@ -6,12 +6,14 @@ import LoginAdmin from "./Login/login_admin";
 import AdminHome from "./Admin/admin_home";
 import ViewSeating from "./Admin/view_seating";
 import Deleteexam from "./Admin/cancel_exam_registration";
+import Viewpayment from "./Admin/view_payment";
 import StudentHome from "./Student/student_home";
 import RegistrationStatus from "./Student/registration_status";
 import ExamRegistration from "./Student/register_exam";
 import {Home} from "./home";
 import ExamOptions from "./Student/examoptions";
 import { Route, BrowserRouter } from "react-router-dom";
+//import { viewpayment } from "../../backend/testController";
 
 
 class App extends Component {
@@ -64,6 +66,14 @@ class App extends Component {
             exact
             render={(props) => {
               return <Deleteexam />;
+            }}
+          />
+
+          <Route
+            path="/admin/viewpayment"
+            exact
+            render={(props) => {
+              return <Viewpayment />;
             }}
           />
 

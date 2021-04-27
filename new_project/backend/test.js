@@ -55,6 +55,8 @@ app.post("/examidsofstudent", test_controller.examidsofstudent);
 
 app.post("/modifyseating", test_controller.modifyseating);
 
+app.post("/viewpayment", test_controller.viewpayment);
+
 app.listen(port, () => {
   console.log("Server running!");
 });
