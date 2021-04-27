@@ -176,13 +176,13 @@ let [rows,setRows] = useState([]);
               <TableCell align="right">{row.e_date}</TableCell>
               <TableCell align="right">{row.s_name}</TableCell>
               <TableCell align="right">{row.ph_number}</TableCell>
-              <TableCell align="right">{row.v}</TableCell>
+              <TableCell align="right">{row.venue}</TableCell>
               <TableCell align="right">{row.e_id}</TableCell>
               <TableCell align="right">{row.paid}</TableCell>
               <TableCell align="right">{row.seat_number}</TableCell>
               <TableCell align="right">{row.s_id}</TableCell>
-              <TableCell align="right">{row.subject}</TableCell>
-              <TableCell align="right">{row.venue_id}</TableCell>
+              <TableCell align="right">{row.sub}</TableCell>
+              <TableCell align="right">{row.v_id}</TableCell>
             </TableRow>
           ))}
         </TableBody>
