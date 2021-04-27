@@ -441,59 +441,73 @@ exports.deleteregistration = (req, res) => {
 	});
 }
 
-// exports.reschedule_exam = (req, res) => {
-//     let x;
+exports.reschedule_exam = (req, res) => {
+    let x;
 
-// 	const fetchData = callback => {
-// 		const promise = new Promise(async (resolve, reject) => {
+	const fetchData = callback => {
+		const promise = new Promise(async (resolve, reject) => {
 			
-// 			try {
-// 				// let x = await db.execute("select * from student_exam_details where student_id = ?;", [req.body['student_id']]);
-
-// 				let same_exams = await db.execute("select * from student_exam_details where venue = ? and exam_date = ?;", [req.body['venue'], req.body['new_date']]);
-// 				same_exams = same_exams[0];
-// 				console.log(same_exams);
-
-// 				// let seats = [];
-// 				// for (exam in same_exams) {
-// 				// 	seats.push(exam['seatno']);
-// 				// }
-
-// 				// console.log(seats);
-
-// 				// let newseat;
-// 				// let i = 1;
-// 				// while(i <= venue_size) {
-// 				// 	if (seats.includes(i) == false) {
-// 				// 		newseat = i;
-// 				// 		break;
-// 				// 	}
-// 				// }
+			try {
 				
-// 				// if (newseat == undefined) {
-// 				// 	resolve("no seats available");
-// 				// }
+				let x = await db.execute("select * from student_exam_details where exam_id = ?;", [req.body['exam_id']]);
+				x = x[0][0];
+				console.log(x['Venue']);
+				console.log(req.body['new_date']);
 
-// 				resolve(undefined);
-// 			} catch (err) {
-// 				reject(err);
-// 			}
+				let venue = await db.execute("select * from venue_data where venue = ?;", [x['Venue']]);
+				venue = venue[0][0];
+				console.log(venue);
+				let venue_size = venue['no_of_seats'];
+				console.log(venue_size);
 
-// 		});
-// 		return promise;		
-// 	};
+				let same_exams = await db.execute("select * from student_exam_details where venue = ? and exam_date = ?;", [x['Venue'], req.body['new_date']]);
+				same_exams = same_exams[0];
+				console.log(same_exams);
 
-// 	fetchData().then(data => {
-// 		x = data;
-// 		if (x == undefined) {
-// 			console.log("no payment");
-// 			res.status(200).json({"error":"empty seats"});
-// 		} else {
-// 			console.log("payment done!");
-// 			res.status(200).json({"error":"none", students_exams: x});
-// 		}
+				let seats = [];
+				for (exam in same_exams) {
+					seats.push(exam['seatno']);
+				}
 
-// 	}, err => {
-// 		console.log(err);
-// 	});
-// }
+				console.log(seats);
+
+				let newseat;
+				let i = 1;
+				while(i <= venue_size) {
+					if (seats.includes(i) == false) {
+						newseat = i;
+						break;
+					}
+				}
+
+				console.log(newseat);
+				
+				if (newseat == undefined) {
+					resolve("no seats available");
+				}
+
+				x = await db.execute("update student_exam_details set Exam_Date = ? where exam_id = ?;", [req.body['new_date'], req.body['exam_id']]);
+				resolve([]);
+
+			} catch (err) {
+				reject(err);
+			}
+
+		});
+		return promise;		
+	};
+
+	fetchData().then(data => {
+		x = data;
+		if (x == undefined || x == "no seats available") {
+			console.log("rescheduling not done!");
+			res.status(200).json({"error":"no rescheduling"});
+		} else {
+			console.log("rescheduling done!");
+			res.status(200).json({"error":"none"});
+		}
+
+	}, err => {
+		console.log(err);
+	});
+}
