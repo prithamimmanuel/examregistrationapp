@@ -4,12 +4,14 @@ import LoginStudent from "./Login/login_student";
 import RegisterStudent from "./Login/register_student";
 import LoginAdmin from "./Login/login_admin";
 import AdminHome from "./Admin/admin_home";
+import ViewSeating from "./Admin/view_seating";
 import StudentHome from "./Student/student_home";
 import RegistrationStatus from "./Student/registration_status";
 import ExamRegistration from "./Student/register_exam";
 import {Home} from "./home";
-import ExamOptions from "./Student/examoptions"
+import ExamOptions from "./Student/examoptions";
 import { Route, BrowserRouter } from "react-router-dom";
+
 
 class App extends Component {
   //set host url here
@@ -46,6 +48,13 @@ class App extends Component {
             exact
             render={(props) => {
               return <AdminHome/>;
+            }}
+          />
+          <Route
+            path="/admin/viewseating"
+            exact
+            render={(props) => {
+              return <ViewSeating />;
             }}
           />
           <Route

@@ -72,6 +72,10 @@ export default function LoginAdmin() {
       .catch((err) => console.log(err));
   };
 
+  const handle_view = (e) => {
+    window.location.href="./viewseating"
+  }
+
   const handle_all_students = (e) => {
     e.preventDefault();
     console.log("reached all students");
@@ -118,7 +122,7 @@ export default function LoginAdmin() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={handle_submit}
+            onClick={handle_view}
           >
             View Seating Arrangements
           </Button>
