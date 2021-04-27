@@ -8,6 +8,7 @@ import StudentHome from "./Student/student_home";
 import RegistrationStatus from "./Student/registration_status";
 import ExamRegistration from "./Student/register_exam";
 import {Home} from "./home";
+import ExamOptions from "./Student/examoptions"
 import { Route, BrowserRouter } from "react-router-dom";
 
 class App extends Component {
@@ -45,6 +46,13 @@ class App extends Component {
             exact
             render={(props) => {
               return <AdminHome/>;
+            }}
+          />
+          <Route
+            path="/examoptions/:s_id/:exam_id"
+            exact
+            render={(props) => {
+              return <ExamOptions {...props}/>;
             }}
           />
           {/* <Route
