@@ -35,10 +35,7 @@ app.post("/deletestudent", test_controller.deletestudent);
 
 app.post("/getallstudents", test_controller.getallstudents);
 
-app.post("/registerexam", (req, res) => {
-	console.log(req.body);
-	res.status(200).json({"error":"none"});
-});
+app.post("/examregistration", test_controller.insert_student_details);
 
 app.listen(port, () => {
   console.log("Server running!");

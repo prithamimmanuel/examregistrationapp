@@ -167,3 +167,42 @@ exports.add_student = async function (data) {
     }
     
 };
+
+exports.insert_student_details = (req, res) => {
+	let x;
+
+	const fetchData = callback => {
+		const promise = new Promise(async (resolve, reject) => {
+			
+			try {
+				console.log(req.body);
+				let x = await db.execute("select * from students where student_id = ?;", [req.body['id']]);
+				console.log(x[0]);
+				resolve(x[0]);
+			} catch (err) {
+				reject(err);
+			}
+
+		});
+		return promise;		
+	};
+
+	fetchData().then(data => {
+		x = data;
+		// console.log(x);
+		if (x == undefined) {
+			console.log("no clue what happened there");
+			res.status(200).json({"error":"db error"});
+		} else if (x.length == 0) {
+			res.status(200).json({"error":"student not found"});
+		} else {
+			console.log("all good");
+			res.status(200).json({"error":"none", students: x});
+		}
+
+	}, err => {
+		console.log(err);
+		res.status(200).json({"error":"big error"});
+	});
+	// console.log("reached insert student details function");
+}

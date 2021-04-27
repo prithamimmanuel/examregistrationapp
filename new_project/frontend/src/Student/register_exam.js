@@ -56,27 +56,33 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function ExamRegistration() {
+export default function ExamRegistration(props) {
     const classes = useStyles();
 
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     console.log("reached");
 
+    let id = props.match.params.s_id;
+    console.log(id); 
+
     const handle_submit = (e) => {
         e.preventDefault();
-        console.log("reached");
+        console.log("bruhbruhbruh");
         axios
             .post("http://localhost:5000/examregistration", {
-                email: email,
-                password: password,
+                id: id,
+                name: name
             })
             .then((res) => {
                 if (res.data.error === "none") {
                     console.log("response", res);
+                } else if (res.data.error === "student not found") {
+                    window.location.href = "../../../";
                 } else {
-                    alert("ERROR ", res.data.error);
+                    console.log("response", res);
                 }
             })
             .catch((err) => console.log(err));
@@ -102,9 +108,8 @@ export default function ExamRegistration() {
                         id="name"
                         label="Name"
                         name="name"
-
                         autoFocus
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => setName(e.target.value)}
                     />
                     <p>Enter your Age :</p>
                     <TextField

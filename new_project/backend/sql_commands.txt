@@ -24,6 +24,8 @@ CREATE TABLE student_exam_details (
     FOREIGN KEY(venue_id) REFERENCES venue_data(venue_id)
 );
 
+insert into student_exam_details ()
+
 CREATE TABLE venue_data (
     venue_id INT NOT NULL AUTO_INCREMENT,
     venue VARCHAR(45) NOT NULL,
