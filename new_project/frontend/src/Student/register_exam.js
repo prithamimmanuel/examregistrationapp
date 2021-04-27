@@ -60,8 +60,13 @@ export default function ExamRegistration(props) {
     const classes = useStyles();
 
     const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [age, setAge] = useState("");
+    const [phoneno, setPhoneno] = useState("");
+    const [DOB, setDOB] = useState("");
+    const [address, setAddress] = useState("");
+    const [venue, setVenue] = useState("");
+    const [subject, setSubject] = useState("");
+    const [DOE, setDOE] = useState("");
 
     console.log("reached");
 
@@ -74,7 +79,14 @@ export default function ExamRegistration(props) {
         axios
             .post("http://localhost:5000/examregistration", {
                 id: id,
-                name: name
+                name: name,
+                age: age,
+                phoneno: phoneno,
+                DOB: DOB,
+                address: address,
+                venue: venue,
+                subject: subject,
+                DOE: DOE,
             })
             .then((res) => {
                 if (res.data.error === "none") {
@@ -119,19 +131,22 @@ export default function ExamRegistration(props) {
                                 max: 100, min: 10
                             }
                         }}
-                        label=""
+                        name="age"
+                        onChange={(e) => setAge(e.target.value)}
                     />
                     <p> Enter DOB:</p>
                     <TextField
                         id="DOB"
                         InputProps={{ inputProps: { min: "1970-01-01", max: "2016-05-04" } }}
                         label="DOB"
+                        name="DOB"
                         type="date"
                         defaultValue=""
                         className={classes.textField}
                         InputLabelProps={{
                             shrink: true,
                         }}
+                        onChange={(e) => setDOB(e.target.value)}
                     />
 
                     <p>Enter your Phone Number :</p>
@@ -144,7 +159,7 @@ export default function ExamRegistration(props) {
                         label="phoneno"
                         name="phoneno"
                         autoFocus
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => setPhoneno(e.target.value)}
                     />
                     <p>Enter Address :</p>
                     <TextField
@@ -156,7 +171,7 @@ export default function ExamRegistration(props) {
                         label="address"
                         name="address"
                         autoFocus
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => setAddress(e.target.value)}
                     />
                     <p> Subject</p>
                     <FormControl className={classes.formControl}>
@@ -164,7 +179,7 @@ export default function ExamRegistration(props) {
                         <Select
                             labelId="Subject"
                             id="subject_id"
-
+                            onChange={(e) => setSubject(e.target.value)}
                         >
                             <MenuItem >GRE</MenuItem>
                             <MenuItem >GMAT</MenuItem>
@@ -178,7 +193,7 @@ export default function ExamRegistration(props) {
                         <Select
                             labelId="Venue"
                             id="venue_id"
-
+                            onChange={(e) => setVenue(e.target.value)}
                         >
                             <MenuItem >Chennai-T Nagar</MenuItem>
                             <MenuItem >Chennai-KK Nagar</MenuItem>
@@ -199,9 +214,11 @@ export default function ExamRegistration(props) {
                         type="date"
                         defaultValue=""
                         className={classes.textField}
+                        onChange={(e) => setDOE(e.target.value)}
                         InputLabelProps={{
                             shrink: true,
                         }}
+
                     />
                     <Button
                         type="submit"

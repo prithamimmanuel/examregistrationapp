@@ -10,13 +10,13 @@ CREATE TABLE student_exam_details (
     exam_id INT NOT NULL AUTO_INCREMENT,
     student_id INT NOT NULL,
     Name VARCHAR(45) NOT NULL,
-    Age INT NOT NULL,DOB DATE NOT NULL,
+    Age INT NOT NULL,
+    DOB VARCHAR(45) NOT NULL,
     Phone_no VARCHAR(45) NOT NULL,
     Address VARCHAR(45) NOT NULL,
     subject VARCHAR(45) NOT NULL ,
     Venue VARCHAR(45) NOT NULL,
-    Exam_Date DATE NOT NULL,
-    examcode VARCHAR(45) NOT NULL,
+    Exam_Date VARCHAR(45) NOT NULL,
     seatno VARCHAR(45) NOT NULL,
     venue_id INT NOT NULL,
     PRIMARY KEY (exam_id),
@@ -32,3 +32,7 @@ CREATE TABLE venue_data (
     no_of_seats INT NOT NULL,
     PRIMARY KEY(venue_id)
 );
+
+insert into venue_data (venue, no_of_seats) values ( , );
+
+// let y = await db.execute("insert into student_exam_details (student_id, name, age, phone_no, address, subject, venue, exam_date, seatno, venue_id) where student_id = ?;", [req.body['id']]);

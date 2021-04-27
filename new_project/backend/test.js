@@ -37,6 +37,8 @@ app.post("/getallstudents", test_controller.getallstudents);
 
 app.post("/examregistration", test_controller.insert_student_details);
 
+app.post("/getallvenues", test_controller.getallvenues);
+
 app.listen(port, () => {
   console.log("Server running!");
 });
