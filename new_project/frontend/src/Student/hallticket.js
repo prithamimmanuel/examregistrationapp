@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React,{useState,useEffect} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -68,39 +68,84 @@ export default function Hallticket(props) {
     const classes = useStyles();
 
     console.log("Hello");
+    function createData(add,age,DOB,e_date,s_name,ph_number,venue,e_id,paid,seat_number,s_id,sub,v_id) {
+        return { add,age,DOB,e_date,s_name,ph_number,venue,e_id,paid,seat_number,s_id,sub,v_id};
+      }
+
+    let exam_id = props.match['params'].exam_id;
+    let student_id = props.match['params'].s_id;
+
+    const [exam,setExam] = useState("");
+
+    console.log(props);
+
+    // useEffect(()=>{
+    //     axios.post('http://localhost:5000/examdetails',{
+    //         exam_id:exam_id
+    //     })
+    //     .then((res)=>{
+    //         setExam(res.data.exam[0]);
+    //         // console.log(res.data);
+    //     })
+    //     .catch((e)=>console.log("ERROR: ",e));
+    // },[])
+
+    // console.log(exam[0]);
+
+    // //for the seating table
+
+    // //pullingo values
 
 
-    const [exam_date, setExamDate] = useState("");
-    const [venue, setVenue] = useState("");
-    const [submitClick, setsubmitClick] = useState(false);
+    // function createData(add, age, DOB, e_date, s_name, ph_number, venue, e_id, paid, seat_number, s_id, sub, v_id) {
+    //     return { add, age, DOB, e_date, s_name, ph_number, venue, e_id, paid, seat_number, s_id, sub, v_id };
+    // }
 
-    //for the seating table
+   
+    // // let [rows,setRows]=useState([]);
+    // let [rows, setRows] = useState([]);
+    // //seating table stuff ends^
 
-    //pullingo values
-
-
-    function createData(add, age, DOB, e_date, s_name, ph_number, venue, e_id, paid, seat_number, s_id, sub, v_id) {
-        return { add, age, DOB, e_date, s_name, ph_number, venue, e_id, paid, seat_number, s_id, sub, v_id };
-    }
-
-    // const rows = [
-    //   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    //   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    //   createData('Eclair', 262, 16.0, 24, 6.0),
-    //   createData('Cupcake', 305, 3.7, 67, 4.3),
-    //   createData('Gingerbread', 356, 16.0, 49, 3.9),
-    // ];
-
-
-    // let [rows,setRows]=useState([]);
-    let [rows, setRows] = useState([]);
-    //seating table stuff ends^
-
-    console.log("reached");
+    // console.log("reached");
     
+    // let rows1=[]
+    // rows1.push(createData(exam.Address, exam.Age, exam.DOB, exam.Exam_Date, exam.Name, exam.Phone_no, exam.Venue, exam.exam_id, exam.paid, exam.seatno, exam.student_id, exam.subject, exam.venue_id));
+    // setRows(rows1);
+    const [submitClick,setsubmitClick] = useState(false);
+    let [rows, setRows] = useState([]);
+    const handle_submit = (e) => {
+        e
+        .preventDefault();
+        setsubmitClick(true);
+
+        console.log("bruhbruhbruh");
+        axios
+            .post("http://localhost:5000/examdetails", {           
+                exam_id:exam_id
+            })
+            .then((res) => {
+                // setsubmitClick(true);
+                if (res.data.error === "none") {
+                    console.log("response", res.data.exam);
+                    
+                    let rows1=[]
+                    
+                    
+                    rows1.push(createData(res.data.exam[0].Address, res.data.exam[0].Age, res.data.exam[0].DOB, res.data.exam[0].Exam_Date, res.data.exam[0].Name, res.data.exam[0].Phone_no, res.data.exam[0].Venue, res.data.exam[0].exam_id, res.data.exam[0].paid, res.data.exam[0].seatno, res.data.exam[0].student_id, res.data.exam[0].subject, res.data.exam[0].venue_id));
+                    
+                    setRows(rows1);
+                } else if (res.data.error === "student not found") {
+                    window.location.href = "../../../";
+                } else {
+                    console.log("response", res);
+                }
+            })
+            .catch((err) => console.log(err));
+    };
+
 
     // const {exam_id}=useParams()
-    console.log("props=", props);
+    // console.log("props=", props.match['params']);
     // console.log(exam_id);
     //let exam_id = props.match.params.exam_id;
 
@@ -135,7 +180,7 @@ export default function Hallticket(props) {
 
     //                 console.log(res.data.seats.length);
     //                 for (let i = 0; i < res.data.seats.length; i++) {
-    //                     rows1.push(createData(res.data.seats[i].Address, res.data.seats[i].Age, res.data.seats[i].DOB, res.data.seats[i].Exam_Date, res.data.seats[i].Name, res.data.seats[i].Phone_no, res.data.seats[i].Venue, res.data.seats[i].exam_id, res.data.seats[i].paid, res.data.seats[i].seatno, res.data.seats[i].student_id, res.data.seats[i].subject, res.data.seats[i].venue_id));
+    //                     rows1.push(createData(exam.Address, exam.Age, exam.DOB, exam.Exam_Date, exam.Name, exam.Phone_no, exam.Venue, exam.exam_id, exam.paid, exam.seatno, exam.student_id, exam.subject, exam.venue_id));
     //                 }
     //                 setRows(rows1);
     //             } else if (res.data.error === "student not found") {
@@ -146,56 +191,56 @@ export default function Hallticket(props) {
     //         })
     //         .catch((err) => console.log(err));
     // };
-    let decideRender = () => {
-        console.log("rows now= ", rows);
+    let decideRender = ()=>{
+        console.log("rows now= ",rows);
         let obj;
-        if (submitClick) {
-            obj = (
+        if(submitClick){
+            obj= (
                 <TableContainer component={Paper}>
-                    <Table className={classes.table} aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="right">Address</TableCell>
-                                <TableCell align="right">Age</TableCell>
-                                <TableCell align="right">Date of Birth</TableCell>
-                                <TableCell align="right">Exam Date</TableCell>
-                                <TableCell align="right">Name</TableCell>
-                                <TableCell align="right">Phone Number</TableCell>
-                                <TableCell align="right">Venue</TableCell>
-                                <TableCell align="right">Exam ID</TableCell>
-                                <TableCell align="right">Paid(y/n)</TableCell>
-                                <TableCell align="right">Seat Number</TableCell>
-                                <TableCell align="right">Student ID</TableCell>
-                                <TableCell align="right">Subject</TableCell>
-                                <TableCell align="right">Venue ID</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows.map((row) => (
-                                <TableRow >
-                                    <TableCell align="right">{row.add}</TableCell>
-                                    <TableCell align="right">{row.age}</TableCell>
-                                    <TableCell align="right">{row.DOB}</TableCell>
-                                    <TableCell align="right">{row.e_date}</TableCell>
-                                    <TableCell align="right">{row.s_name}</TableCell>
-                                    <TableCell align="right">{row.ph_number}</TableCell>
-                                    <TableCell align="right">{row.venue}</TableCell>
-                                    <TableCell align="right">{row.e_id}</TableCell>
-                                    <TableCell align="right">{row.paid}</TableCell>
-                                    <TableCell align="right">{row.seat_number}</TableCell>
-                                    <TableCell align="right">{row.s_id}</TableCell>
-                                    <TableCell align="right">{row.sub}</TableCell>
-                                    <TableCell align="right">{row.v_id}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+      <Table className={classes.table} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell align="right">Address</TableCell>
+            <TableCell align="right">Age</TableCell>
+            <TableCell align="right">Date of Birth</TableCell>
+            <TableCell align="right">Exam Date</TableCell>
+            <TableCell align="right">Name</TableCell>
+            <TableCell align="right">Phone Number</TableCell>
+            <TableCell align="right">Venue</TableCell>
+            <TableCell align="right">Exam ID</TableCell>
+            <TableCell align="right">Paid(y/n)</TableCell>
+            <TableCell align="right">Seat Number</TableCell>
+            <TableCell align="right">Student ID</TableCell>
+            <TableCell align="right">Subject</TableCell>
+            <TableCell align="right">Venue ID</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow >
+              <TableCell align="right">{row.add}</TableCell>
+              <TableCell align="right">{row.age}</TableCell>
+              <TableCell align="right">{row.DOB}</TableCell>
+              <TableCell align="right">{row.e_date}</TableCell>
+              <TableCell align="right">{row.s_name}</TableCell>
+              <TableCell align="right">{row.ph_number}</TableCell>
+              <TableCell align="right">{row.venue}</TableCell>
+              <TableCell align="right">{row.e_id}</TableCell>
+              <TableCell align="right">{row.paid}</TableCell>
+              <TableCell align="right">{row.seat_number}</TableCell>
+              <TableCell align="right">{row.s_id}</TableCell>
+              <TableCell align="right">{row.sub}</TableCell>
+              <TableCell align="right">{row.v_id}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
             )
         }
         else
-            obj = <div></div>;
-        return obj;
+            obj =<div></div>;
+    return obj;
     }
     let obj = decideRender();
     return (
@@ -203,8 +248,21 @@ export default function Hallticket(props) {
             <CssBaseline />
             <div className={classes.paper}>
 
-                
+                <form className={classes.form} noValidate>
                     
+                    
+                                     
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                        onClick={(e)=>{handle_submit(e);}}
+                    >
+                        Get Hall Ticket
+          </Button>
+        </form>
             </div>
             <Box mt={8}>
                 <Copyright />

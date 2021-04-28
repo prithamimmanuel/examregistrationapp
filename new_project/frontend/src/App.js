@@ -82,7 +82,7 @@ class App extends Component {
             path="/examoptions/:s_id/hallticket/:exam_id"
             exact
             render={(props) => {
-              return <Hallticket />;
+              return <Hallticket {...props}/>;
             }}
           />
 
