@@ -87,7 +87,7 @@ export default function ExamOptions(props) {
           >
             Reschedule Exam
           </Button>
-          <br></br>
+          <br></br>t
           <Button
             type="submit"
             fullWidth
