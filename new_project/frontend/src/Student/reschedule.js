@@ -65,24 +65,38 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function ModifySeating(){
+export default function Rescheduleexam(props){
 
     const classes = useStyles();
 
-    const [exam_id,setExamID] = useState("");
-    const [seat_no,setSeatno] = useState("");
+    
+
+
+    let exam_id=props.match.params.exam_id;
+
+
+
+    
+
+    console.log("props=", exam_id);
+
+
+    //const [exam_id, setExamID] = useState("");
+    const [seat_no, setSeatno] = useState("");
+    const [DOE,setDOE] = useState("");
+
 
     const handle_submit = (e) =>{
         e.preventDefault();
         axios
-            .post("http://localhost:5000/modifyseating", {
+            .post("http://localhost:5000/rescheduleexam", {
                 exam_id: exam_id,
-                new_seat: seat_no
+                new_date:DOE
             })
             .then((res) => {
                 if (res.data.error === "no user") {
                     // window.location.href("url/studenthome/:s_email")
-                    window.location.href = "../../";
+                    //window.location.href = "../../";
                     console.log("response", res);
                 } else {
                     console.log("response", res);
@@ -100,17 +114,19 @@ export default function ModifySeating(){
         <div>
         <form className={classes.form} noValidate>
 
-        <p>Enter the Exam ID :</p>
+        <p> Enter Prefered Date of Examination:</p>
             <TextField
-                type="number"
-                name="exam_id"
-                onChange={(e) => setExamID(e.target.value)}
-            />
-        <p>Enter the New Seat Number :</p>
-            <TextField
-                type="number"
-                name="seat_no"
-                onChange={(e) => setSeatno(e.target.value)}
+                id="DOE"
+                InputProps={{ inputProps: { min: "2021-05-01", max: "2025-05-04" } }}
+                label="Exam Date"
+                type="date"
+                defaultValue=""
+                className={classes.textField}
+                onChange={(e) => setDOE(e.target.value)}
+                InputLabelProps={{
+                    shrink: true,
+                }}
+
             />
         
         <Button

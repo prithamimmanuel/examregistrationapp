@@ -46,6 +46,10 @@ export default function ExamOptions(props) {
     window.location.href = "./hallticket/" + exam_id;
   };
 
+  const handle_schedule = (e) => {
+    window.location.href = "./reschedule/" + exam_id;
+  };
+
     const handle_pay = (e) => {
     e.preventDefault();
     axios
@@ -83,7 +87,7 @@ export default function ExamOptions(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            // onClick={handle_submit}
+            onClick={handle_schedule}
           >
             Reschedule Exam
           </Button>
