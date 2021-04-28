@@ -15,6 +15,7 @@ import ExamOptions from "./Student/examoptions";
 import { Route, BrowserRouter } from "react-router-dom";
 import Hallticket from "./Student/hallticket";
 import ViewAllExams from "./Admin/view_all_exams";
+import ModifySeating from "./Admin/modifyseating";
 //import { viewpayment } from "../../backend/testController";
 
 
@@ -62,7 +63,13 @@ class App extends Component {
               return <ViewSeating />;
             }}
           />
-
+          <Route
+            path="/admin/modifyseating"
+            exact
+            render={(props) => {
+              return <ModifySeating />;
+            }}
+          />      
           <Route
             path="/admin/deleteregistration"
             exact

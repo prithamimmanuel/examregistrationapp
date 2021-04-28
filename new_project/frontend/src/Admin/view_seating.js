@@ -67,8 +67,6 @@ export default function ViewSeating(props) {
     const classes = useStyles();
 
     
-    
-    
     const [exam_date, setExamDate] = useState("");  
     const [venue, setVenue] = useState("");
     const [submitClick,setsubmitClick] = useState(false);
@@ -116,17 +114,7 @@ let [rows,setRows] = useState([]);
                     console.log(res);
                     
 
-                    //set values for rows1 
-                    // from 0-lenghtof response array:
-                    // rows1.push(createData(res.data.correct aana vishwayam))
-                    // let rows1 = [
-                    //     createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-                    //     createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-                    //     createData('Eclair', 262, 16.0, 24, 6.0),
-                    //     createData('Cupcake', 305, 3.7, 67, 4.3),
-                    //     createData('Gingerbread', 356, 16.0, 49, 3.9),
-                    //   ];
-                    // add,age,DOB,e_date,s_name,ph_number,venue,e_id,paid,seat_number,s_id,sub,v_id
+                
                     let rows1=[]
                     
                     console.log(res.data.seats.length);
@@ -143,52 +131,64 @@ let [rows,setRows] = useState([]);
             })
             .catch((err) => console.log(err));
     };
+
+    let modifyClicked = ()=>{
+        window.location.href="http://localhost:3000/admin/modifyseating";
+    }
     let decideRender = ()=>{
         console.log("rows now= ",rows);
         let obj;
         if(submitClick){
-            obj= (
-                <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="right">Address</TableCell>
-            <TableCell align="right">Age</TableCell>
-            <TableCell align="right">Date of Birth</TableCell>
-            <TableCell align="right">Exam Date</TableCell>
-            <TableCell align="right">Name</TableCell>
-            <TableCell align="right">Phone Number</TableCell>
-            <TableCell align="right">Venue</TableCell>
-            <TableCell align="right">Exam ID</TableCell>
-            <TableCell align="right">Paid(y/n)</TableCell>
-            <TableCell align="right">Seat Number</TableCell>
-            <TableCell align="right">Student ID</TableCell>
-            <TableCell align="right">Subject</TableCell>
-            <TableCell align="right">Venue ID</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow >
-              <TableCell align="right">{row.add}</TableCell>
-              <TableCell align="right">{row.age}</TableCell>
-              <TableCell align="right">{row.DOB}</TableCell>
-              <TableCell align="right">{row.e_date}</TableCell>
-              <TableCell align="right">{row.s_name}</TableCell>
-              <TableCell align="right">{row.ph_number}</TableCell>
-              <TableCell align="right">{row.venue}</TableCell>
-              <TableCell align="right">{row.e_id}</TableCell>
-              <TableCell align="right">{row.paid}</TableCell>
-              <TableCell align="right">{row.seat_number}</TableCell>
-              <TableCell align="right">{row.s_id}</TableCell>
-              <TableCell align="right">{row.sub}</TableCell>
-              <TableCell align="right">{row.v_id}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-            )
+            obj = ( <TableContainer component={Paper} style={{"width":"900px"}}>
+            <Table className={classes.table} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="right">Address</TableCell>
+                  <TableCell align="right">Age</TableCell>
+                  <TableCell align="right">Date of Birth</TableCell>
+                  <TableCell align="right">Exam Date</TableCell>
+                  <TableCell align="right">Name</TableCell>
+                  <TableCell align="right">Phone Number</TableCell>
+                  <TableCell align="right">Venue</TableCell>
+                  <TableCell align="right">Exam ID</TableCell>
+                  <TableCell align="right">Paid(y/n)</TableCell>
+                  <TableCell align="right">Seat Number</TableCell>
+                  <TableCell align="right">Student ID</TableCell>
+                  <TableCell align="right">Subject</TableCell>
+                  <TableCell align="right">Venue ID</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow >
+                    <TableCell align="right">{row.add}</TableCell>
+                    <TableCell align="right">{row.age}</TableCell>
+                    <TableCell align="right">{row.DOB}</TableCell>
+                    <TableCell align="right">{row.e_date}</TableCell>
+                    <TableCell align="right">{row.s_name}</TableCell>
+                    <TableCell align="right">{row.ph_number}</TableCell>
+                    <TableCell align="right">{row.venue}</TableCell>
+                    <TableCell align="right">{row.e_id}</TableCell>
+                    <TableCell align="right">{row.paid}</TableCell>
+                    <TableCell align="right">{row.seat_number}</TableCell>
+                    <TableCell align="right">{row.s_id}</TableCell>
+                    <TableCell align="right">{row.sub}</TableCell>
+                    <TableCell align="right">{row.v_id}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+            <Button type="submit"
+               fullWidth
+               variant="contained"
+               color="primary"
+               className={classes.submit}
+               onClick={modifyClicked}
+               >
+                Modify Seating Arrangements      
+        </Button>
+          </TableContainer>
+          )
         }
         else
             obj =<div></div>;
