@@ -191,12 +191,11 @@ exports.insert_student_details = (req, res) => {
 
 					let seats = [];
 					for (exam in same_exams) {
-						seats.push(exam['seatno']);
+						seats.push(parseInt(same_exams[exam]['seatno']));
 					}
 
+					console.log("these are the seats");
 					console.log(seats);
-
-					console.log(seats.includes(1))
 
 					let newseat;
 					let i = 1;
@@ -536,9 +535,10 @@ exports.reschedule_exam = (req, res) => {
 
 				let seats = [];
 				for (exam in same_exams) {
-					seats.push(exam['seatno']);
+					seats.push(parseInt(same_exams[exam]['seatno']));
 				}
 
+				console.log("these are the seats");
 				console.log(seats);
 
 				let newseat;
@@ -548,6 +548,7 @@ exports.reschedule_exam = (req, res) => {
 						newseat = i;
 						break;
 					}
+					i++;
 				}
 
 				console.log(newseat);
