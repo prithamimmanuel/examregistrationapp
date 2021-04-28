@@ -70,7 +70,7 @@ export default function Viewpayment() {
 
     const [exam_id, setExamid] = useState("");
     const [submitClick, setsubmitClick] = useState(false);
-    let val="";
+    const [val,setVal]=useState("");
 
     const handle_viewpayment = (e) => {
         e.preventDefault();
@@ -87,8 +87,8 @@ export default function Viewpayment() {
                     console.log("response", res);
                 } else {
                     console.log("response", res.data.exam[0].paid);
-                    val = res.data.exam[0].paid;
-                   
+                    
+                    setVal(res.data.exam[0].paid);
                 }
             })
             .catch((err) => console.log(err));
@@ -100,8 +100,12 @@ export default function Viewpayment() {
     let decideRender = () => {
         let obj;
         if (submitClick) {
-            console.log(val);
-            obj = val;
+            console.log("val=",val);
+            obj = (
+            <Typography name="modify" component="h2" variant="h5">
+                {val}
+            </Typography>
+            )
         }
         else
             obj = <div></div>;
@@ -143,6 +147,7 @@ export default function Viewpayment() {
                     View Payment
           </Button>
                 <br></br>
+            
             </div>
             {obj}
             <Box mt={8}>

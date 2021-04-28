@@ -86,23 +86,28 @@ export default function LoginAdmin() {
   }
 
   const handle_all_students = (e) => {
-    e.preventDefault();
-    console.log("reached all students");
-    axios
-      .post("http://localhost:5000/getallstudents",{
-        dummy: "dummy"
-      })
-      .then((res) => {
-        if (res.data.error === "none") {
-          // window.location.href("url/studenthome/:s_email")
-          // window.location.href = "../student/" + res.data.student_id;
-          console.log("response", res);
-        } else {
-          console.log("response", res);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
+    window.location.href = "./viewallexams"
+
+  }
+
+  // const handle_all_students = (e) => {
+  //   e.preventDefault();
+  //   console.log("reached all students");
+  //   axios
+  //     .post("http://localhost:5000/getallstudents",{
+  //       dummy: "dummy"
+  //     })
+  //     .then((res) => {
+  //       if (res.data.error === "none") {
+  //         // window.location.href("url/studenthome/:s_email")
+  //         // window.location.href = "../student/" + res.data.student_id;
+  //         console.log("response", res);
+  //       } else {
+  //         console.log("response", res);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -123,7 +128,7 @@ export default function LoginAdmin() {
             className={classes.submit}
             onClick={handle_all_students}
           >
-            Display All Students
+            Display All Exams
           </Button>
           <Button
             type="submit"

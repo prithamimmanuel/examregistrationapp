@@ -14,6 +14,7 @@ import {Home} from "./home";
 import ExamOptions from "./Student/examoptions";
 import { Route, BrowserRouter } from "react-router-dom";
 import Hallticket from "./Student/hallticket";
+import ViewAllExams from "./Admin/view_all_exams";
 //import { viewpayment } from "../../backend/testController";
 
 
@@ -83,6 +84,14 @@ class App extends Component {
             exact
             render={(props) => {
               return <Hallticket {...props}/>;
+            }}
+          />
+
+          <Route
+            path="/admin/viewallexams"
+            exact
+            render={(props) => {
+              return <ViewAllExams />;
             }}
           />
 
