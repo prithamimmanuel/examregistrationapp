@@ -74,11 +74,11 @@ export default function Rescheduleexam(props){
 
     let exam_id=props.match.params.exam_id;
 
-
+    let s_id=props.match.params.s_id;
 
     
 
-    console.log("props=", exam_id);
+    console.log("props=", props.match.params);
 
 
     //const [exam_id, setExamID] = useState("");
@@ -99,6 +99,7 @@ export default function Rescheduleexam(props){
                     //window.location.href = "../../";
                     console.log("response", res);
                 } else {
+                    window.location.href = "../../" + s_id + "/" + exam_id;
                     console.log("response", res);
                 }
             })

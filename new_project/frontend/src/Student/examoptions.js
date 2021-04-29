@@ -79,7 +79,7 @@ export default function ExamOptions(props) {
             className={classes.submit}
             onClick={handle_hall}
           >
-            Download Hall Ticket
+            View Hall Ticket
           </Button>
           <br></br>
           <Button

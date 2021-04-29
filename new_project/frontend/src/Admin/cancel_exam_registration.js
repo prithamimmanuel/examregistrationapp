@@ -86,6 +86,8 @@ export default function Deleteexam() {
                     console.log("response", res);
                 } else {
                     console.log("response", res);
+                    window.location.href = "../admin/home";
+
                 }
             })
             .catch((err) => console.log(err));
