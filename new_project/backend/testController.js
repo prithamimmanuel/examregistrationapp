@@ -1,14 +1,14 @@
-const db=require("./sql_test.js");
-const db2=require("./exam_db");
+const db = require("./sql_test.js");
+const db2 = require("./exam_db");
 
 exports.loginstudent = (req, res) => {
-	
+
 	// console.log(req.body['email']);
 	let x;
 
 	const fetchData = callback => {
 		const promise = new Promise(async (resolve, reject) => {
-			
+
 			try {
 				let x = await db.execute("select * from students where email = ?;", [req.body['email']]);
 				resolve(x[0]);
@@ -17,7 +17,7 @@ exports.loginstudent = (req, res) => {
 			}
 
 		});
-		return promise;		
+		return promise;
 	};
 
 	fetchData().then(data => {
@@ -26,14 +26,14 @@ exports.loginstudent = (req, res) => {
 
 		if (x == undefined) {
 			console.log("User not found");
-			res.status(200).json({"error":"no user"});
+			res.status(200).json({ "error": "no user" });
 		} else {
 			if (x['password'] != req.body['password']) {
 				console.log("Incorrect password!");
-				res.status(200).json({"error":"password"});
+				res.status(200).json({ "error": "password" });
 			} else {
 				console.log("Logged in!");
-				res.status(200).json({"error":"none", "student_id": x['student_id']});
+				res.status(200).json({ "error": "none", "student_id": x['student_id'] });
 
 			}
 		}
@@ -41,15 +41,15 @@ exports.loginstudent = (req, res) => {
 	}, err => {
 		console.log(err);
 	});
-	
+
 };
 
 exports.studenthome = (req, res) => {
-    let x;
+	let x;
 
 	const fetchData = callback => {
 		const promise = new Promise(async (resolve, reject) => {
-			
+
 			try {
 				let x = await db.execute("select * from students where student_id = ?;", [req.body['id']]);
 				resolve(x[0]);
@@ -58,7 +58,7 @@ exports.studenthome = (req, res) => {
 			}
 
 		});
-		return promise;		
+		return promise;
 	};
 
 	fetchData().then(data => {
@@ -67,10 +67,10 @@ exports.studenthome = (req, res) => {
 
 		if (x == undefined) {
 			console.log("User not found");
-			res.status(200).json({"error":"no user"});
+			res.status(200).json({ "error": "no user" });
 		} else {
 			console.log("User found!");
-			res.status(200).json({"error":"none", "student": x});
+			res.status(200).json({ "error": "none", "student": x });
 		}
 
 	}, err => {
@@ -79,30 +79,31 @@ exports.studenthome = (req, res) => {
 }
 
 exports.deletestudent = (req, res) => {
-    let x;
+	let x;
 
 	const fetchData = callback => {
 		const promise = new Promise(async (resolve, reject) => {
-			
+
 			try {
-				let x = await db.execute("delete from students where student_id = ?;", [req.body['id']]);
+				let x = await db.execute("delete from student_exam_details where student_id = ?;", [req.body['id']]);
+				x = await db.execute("delete from students where student_id = ?;", [req.body['id']]);
 				resolve(x[0]);
 			} catch (err) {
 				reject(err);
 			}
 
 		});
-		return promise;		
+		return promise;
 	};
 
 	fetchData().then(data => {
 
 		if (x == undefined) {
 			console.log("User not found");
-			res.status(200).json({"error":"no user"});
+			res.status(200).json({ "error": "no user" });
 		} else {
 			console.log("User found!");
-			res.status(200).json({"error":"none"});
+			res.status(200).json({ "error": "none" });
 		}
 
 	}, err => {
@@ -115,7 +116,7 @@ exports.getallstudents = (req, res) => {
 
 	const fetchData = callback => {
 		const promise = new Promise(async (resolve, reject) => {
-			
+
 			try {
 				let x = await db.execute("select * from students;");
 				console.log(x[0]);
@@ -125,7 +126,7 @@ exports.getallstudents = (req, res) => {
 			}
 
 		});
-		return promise;		
+		return promise;
 	};
 
 	fetchData().then(data => {
@@ -138,10 +139,10 @@ exports.getallstudents = (req, res) => {
 		// console.log("end/n/n/n/n");
 		if (x == undefined) {
 			console.log("no clue what happened there");
-			res.status(200).json({"error":"db error"});
+			res.status(200).json({ "error": "db error" });
 		} else {
 			console.log("all good");
-			res.status(200).json({"error":"none", students: x});
+			res.status(200).json({ "error": "none", students: x });
 		}
 
 	}, err => {
@@ -151,22 +152,20 @@ exports.getallstudents = (req, res) => {
 
 exports.add_student = async function (data) {
 
-    console.log(data);
-    var x = [];
-    for (item in data) {
-        x.push(data[item]);
-    }
-    console.log(x);
-    try
-    {
-        const result= await db.execute("insert into students (name, email, password) values (?, ?, ?);", x);
-        console.log(result[0]);
-    }
-    catch(err)
-    {
-        console.log(err);
-    }
-    
+	console.log(data);
+	var x = [];
+	for (item in data) {
+		x.push(data[item]);
+	}
+	console.log(x);
+	try {
+		const result = await db.execute("insert into students (name, email, password) values (?, ?, ?);", x);
+		console.log(result[0]);
+	}
+	catch (err) {
+		console.log(err);
+	}
+
 };
 
 exports.insert_student_details = (req, res) => {
@@ -174,7 +173,7 @@ exports.insert_student_details = (req, res) => {
 
 	const fetchData = callback => {
 		const promise = new Promise(async (resolve, reject) => {
-			
+
 			try {
 				console.log(req.body);
 				let x = await db.execute("select * from students where student_id = ?;", [req.body['id']]);
@@ -186,27 +185,29 @@ exports.insert_student_details = (req, res) => {
 					console.log(venue);
 					let venue_size = venue['no_of_seats'];
 					console.log(venue_size);
-					
+
 					let same_exams = await db.execute("select * from student_exam_details where venue = ? and exam_date = ?;", [req.body['venue'], req.body['DOE']]);
 					same_exams = same_exams[0];
 					console.log(same_exams);
 
 					let seats = [];
 					for (exam in same_exams) {
-						seats.push(exam['seatno']);
+						seats.push(parseInt(same_exams[exam]['seatno']));
 					}
 
+					console.log("these are the seats");
 					console.log(seats);
 
 					let newseat;
 					let i = 1;
-					while(i <= venue_size) {
+					while (i <= venue_size) {
 						if (seats.includes(i) == false) {
 							newseat = i;
 							break;
 						}
+						i++;
 					}
-					
+
 					if (newseat == undefined) {
 						resolve("no seats available");
 					}
@@ -221,7 +222,7 @@ exports.insert_student_details = (req, res) => {
 			}
 
 		});
-		return promise;		
+		return promise;
 	};
 
 	fetchData().then(data => {
@@ -229,28 +230,28 @@ exports.insert_student_details = (req, res) => {
 		// console.log(x);
 		if (x == undefined) {
 			console.log("no clue what happened there");
-			res.status(200).json({"error":"db error"});
+			res.status(200).json({ "error": "db error" });
 		} else if (x.length == 0) {
-			res.status(200).json({"error":"student not found"});
+			res.status(200).json({ "error": "student not found" });
 		} else if (x == "no seats available") {
-			res.status(200).json({"error":"no seats available"});	
+			res.status(200).json({ "error": "no seats available" });
 		} else {
 			console.log("all good");
-			res.status(200).json({"error":"none", students: x});
+			res.status(200).json({ "error": "none", students: x });
 		}
 
 	}, err => {
 		console.log(err);
-		res.status(200).json({"error":"big error"});
+		res.status(200).json({ "error": "big error" });
 	});
 }
 
-exports.getallvenues =  (req, res) => {
+exports.getallvenues = (req, res) => {
 	let x;
 
 	const fetchData = callback => {
 		const promise = new Promise(async (resolve, reject) => {
-			
+
 			try {
 				let x = await db.execute("select * from venue_data;");
 				console.log(x[0]);
@@ -260,7 +261,7 @@ exports.getallvenues =  (req, res) => {
 			}
 
 		});
-		return promise;		
+		return promise;
 	};
 
 	fetchData().then(data => {
@@ -270,10 +271,10 @@ exports.getallvenues =  (req, res) => {
 		}
 		if (x == undefined) {
 			console.log("no clue what happened there");
-			res.status(200).json({"error":"db error"});
+			res.status(200).json({ "error": "db error" });
 		} else {
 			console.log("all good");
-			res.status(200).json({"error":"none", venues: x});
+			res.status(200).json({ "error": "none", venues: x });
 		}
 
 	}, err => {
@@ -282,11 +283,11 @@ exports.getallvenues =  (req, res) => {
 }
 
 exports.seatsforvenueanddate = (req, res) => {
-    let x;
+	let x;
 
 	const fetchData = callback => {
 		const promise = new Promise(async (resolve, reject) => {
-			
+
 			try {
 				// let x = await db.execute("delete from students where student_id = ?;", [req.body['id']]);
 				// resolve(x[0]);
@@ -299,17 +300,17 @@ exports.seatsforvenueanddate = (req, res) => {
 			}
 
 		});
-		return promise;		
+		return promise;
 	};
 
 	fetchData().then(data => {
 		x = data;
 		if (x == undefined) {
 			console.log("No seats occupied.");
-			res.status(200).json({"error":"empty seats"});
+			res.status(200).json({ "error": "empty seats" });
 		} else {
 			console.log("User found!");
-			res.status(200).json({"error":"none", seats: x});
+			res.status(200).json({ "error": "none", seats: x });
 		}
 
 	}, err => {
@@ -318,11 +319,11 @@ exports.seatsforvenueanddate = (req, res) => {
 }
 
 exports.payforexam = (req, res) => {
-    let x;
+	let x;
 	// console.log(req.body);
 	const fetchData = callback => {
 		const promise = new Promise(async (resolve, reject) => {
-			
+
 			try {
 				let x = await db.execute("update student_exam_details set paid = \"PAID\" where exam_id = ?;", [req.body['exam_id']]);
 				x = await db.execute("select * from student_exam_details where exam_id = ?;", [req.body['exam_id']]);
@@ -332,17 +333,17 @@ exports.payforexam = (req, res) => {
 			}
 
 		});
-		return promise;		
+		return promise;
 	};
 
 	fetchData().then(data => {
 		x = data;
 		if (x == undefined) {
 			console.log("no payment");
-			res.status(200).json({"error":"not paid"});
+			res.status(200).json({ "error": "not paid" });
 		} else {
 			console.log("payment done!");
-			res.status(200).json({"error":"none", payment: x});
+			res.status(200).json({ "error": "none", payment: x });
 		}
 
 	}, err => {
@@ -351,11 +352,11 @@ exports.payforexam = (req, res) => {
 }
 
 exports.allexamsstudentiswriting = (req, res) => {
-    let x;
+	let x;
 
 	const fetchData = callback => {
 		const promise = new Promise(async (resolve, reject) => {
-			
+
 			try {
 				let x = await db.execute("select * from student_exam_details where student_id = ?;", [req.body['student_id']]);
 				resolve(x[0]);
@@ -364,17 +365,17 @@ exports.allexamsstudentiswriting = (req, res) => {
 			}
 
 		});
-		return promise;		
+		return promise;
 	};
 
 	fetchData().then(data => {
 		x = data;
 		if (x == undefined) {
 			console.log("no payment");
-			res.status(200).json({"error":"empty seats"});
+			res.status(200).json({ "error": "empty seats" });
 		} else {
 			console.log("payment done!");
-			res.status(200).json({"error":"none", students_exams: x});
+			res.status(200).json({ "error": "none", students_exams: x });
 		}
 
 	}, err => {
@@ -401,12 +402,11 @@ exports.examidsofstudent = (req, res) => {
 
 	fetchData().then(data => {
 		x = data;
-		let idlist=[];
-		for (element in x)
-		{
+		let idlist = [];
+		for (element in x) {
 			idlist.push(x[element].exam_id);
 		}
-		console.log("x = ",x);
+		console.log("x = ", x);
 		if (x == undefined) {
 			console.log("no payment");
 			res.status(200).json({ "error": "empty seats" });
@@ -421,11 +421,11 @@ exports.examidsofstudent = (req, res) => {
 }
 
 exports.exam_details = (req, res) => {
-    let x;
+	let x;
 
 	const fetchData = callback => {
 		const promise = new Promise(async (resolve, reject) => {
-			
+
 			try {
 				let x = await db.execute("select * from student_exam_details where exam_id = ?;", [req.body['exam_id']]);
 				resolve(x[0]);
@@ -434,17 +434,49 @@ exports.exam_details = (req, res) => {
 			}
 
 		});
-		return promise;		
+		return promise;
 	};
 
 	fetchData().then(data => {
 		x = data;
 		if (x == undefined) {
 			console.log("no exam");
-			res.status(200).json({"error":"no exam"});
+			res.status(200).json({ "error": "no exam" });
 		} else {
 			console.log("yes exam");
-			res.status(200).json({"error":"none", exam: x});
+			res.status(200).json({ "error": "none", exam: x });
+		}
+
+	}, err => {
+		console.log(err);
+	});
+}
+
+exports.viewpayment = (req, res) => {
+	let x;
+
+	const fetchData = callback => {
+		const promise = new Promise(async (resolve, reject) => {
+
+			try {
+				let x = await db.execute("select paid from student_exam_details where exam_id = ?;", [req.body['exam_id']]);
+				resolve(x[0]);
+			} catch (err) {
+				reject(err);
+			}
+
+		});
+		return promise;
+	};
+
+	fetchData().then(data => {
+		x = data;
+		if (x == undefined) {
+			console.log("no exam");
+			res.status(200).json({ "error": "no exam" });
+		} else {
+			console.log("yes exam");
+			res.status(200).json({ "error": "none", exam: x });
 		}
 
 	}, err => {
@@ -453,11 +485,11 @@ exports.exam_details = (req, res) => {
 }
 
 exports.deleteregistration = (req, res) => {
-    let x;
+	let x;
 
 	const fetchData = callback => {
 		const promise = new Promise(async (resolve, reject) => {
-			
+
 			try {
 				let x = await db.execute("delete from student_exam_details where exam_id = ?;", [req.body['exam_id']]);
 				resolve(x[0]);
@@ -466,27 +498,27 @@ exports.deleteregistration = (req, res) => {
 			}
 
 		});
-		return promise;		
+		return promise;
 	};
 
 	fetchData().then(data => {
 
-		res.status(200).json({"error": "exam deleted"});
+		res.status(200).json({ "error": "exam deleted" });
 
 	}, err => {
-		res.status(200).json({"error": "exam may not be deleted"});
+		res.status(200).json({ "error": "exam may not be deleted" });
 		console.log(err);
 	});
 }
 
 exports.reschedule_exam = (req, res) => {
-    let x;
+	let x;
 
 	const fetchData = callback => {
 		const promise = new Promise(async (resolve, reject) => {
-			
+
 			try {
-				
+
 				let x = await db.execute("select * from student_exam_details where exam_id = ?;", [req.body['exam_id']]);
 				x = x[0][0];
 				console.log(x['Venue']);
@@ -504,22 +536,24 @@ exports.reschedule_exam = (req, res) => {
 
 				let seats = [];
 				for (exam in same_exams) {
-					seats.push(exam['seatno']);
+					seats.push(parseInt(same_exams[exam]['seatno']));
 				}
 
+				console.log("these are the seats");
 				console.log(seats);
 
 				let newseat;
 				let i = 1;
-				while(i <= venue_size) {
+				while (i <= venue_size) {
 					if (seats.includes(i) == false) {
 						newseat = i;
 						break;
 					}
+					i++;
 				}
 
 				console.log(newseat);
-				
+
 				if (newseat == undefined) {
 					resolve("no seats available");
 				}
@@ -532,17 +566,17 @@ exports.reschedule_exam = (req, res) => {
 			}
 
 		});
-		return promise;		
+		return promise;
 	};
 
 	fetchData().then(data => {
 		x = data;
 		if (x == undefined || x == "no seats available") {
 			console.log("rescheduling not done!");
-			res.status(200).json({"error":"no rescheduling"});
+			res.status(200).json({ "error": "no rescheduling" });
 		} else {
 			console.log("rescheduling done!");
-			res.status(200).json({"error":"none"});
+			res.status(200).json({ "error": "none" });
 		}
 
 	}, err => {
@@ -551,13 +585,13 @@ exports.reschedule_exam = (req, res) => {
 }
 
 exports.modifyseating = (req, res) => {
-    let x;
+	let x;
 
 	const fetchData = callback => {
 		const promise = new Promise(async (resolve, reject) => {
-			
+
 			try {
-				
+
 				let x = await db.execute("select * from student_exam_details where exam_id = ?;", [req.body['exam_id']]);
 				x = x[0][0];
 				console.log(x);
@@ -586,25 +620,58 @@ exports.modifyseating = (req, res) => {
 					resolve([]);
 				}
 
-			// 	x = await db.execute("update student_exam_details set Exam_Date = ? where exam_id = ?;", [req.body['new_date'], req.body['exam_id']]);
-			// 	resolve([]);
+				// 	x = await db.execute("update student_exam_details set Exam_Date = ? where exam_id = ?;", [req.body['new_date'], req.body['exam_id']]);
+				// 	resolve([]);
 
 			} catch (err) {
 				reject(err);
 			}
 
 		});
-		return promise;		
+		return promise;
 	};
 
 	fetchData().then(data => {
 		x = data;
 		if (x == undefined || x == "seat already taken") {
 			console.log("seat change not done!");
-			res.status(200).json({"error":"no rescheduling"});
+			res.status(200).json({ "error": "no seat change" });
 		} else {
 			console.log("seat change done!");
-			res.status(200).json({"error":"none"});
+			res.status(200).json({ "error": "none" });
+		}
+
+	}, err => {
+		console.log(err);
+	});
+}
+
+exports.displayallexams = (req, res) => {
+	let x;
+
+	const fetchData = callback => {
+		const promise = new Promise(async (resolve, reject) => {
+
+			try {
+				let x = await db.execute("select * from student_exam_details;");
+				console.log(x[0]);
+				resolve(x[0]);
+			} catch (err) {
+				reject(err);
+			}
+
+		});
+		return promise;
+	};
+
+	fetchData().then(data => {
+		x = data;
+		if (x == undefined) {
+			console.log("no clue what happened there");
+			res.status(200).json({ "error": "db error" });
+		} else {
+			console.log("all good");
+			res.status(200).json({ "error": "none", exams: x });
 		}
 
 	}, err => {

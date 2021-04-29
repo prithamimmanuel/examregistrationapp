@@ -72,24 +72,42 @@ export default function LoginAdmin() {
       .catch((err) => console.log(err));
   };
 
+  const handle_view = (e) => {
+    window.location.href="./viewseating"
+  }
+
+  const handle_delete = (e) => {
+    window.location.href="./deleteregistration"
+  }
+
+  const handle_payment = (e) => {
+    window.location.href = "./viewpayment"
+
+  }
+
   const handle_all_students = (e) => {
-    e.preventDefault();
-    console.log("reached all students");
-    axios
-      .post("http://localhost:5000/getallstudents",{
-        dummy: "dummy"
-      })
-      .then((res) => {
-        if (res.data.error === "none") {
-          // window.location.href("url/studenthome/:s_email")
-          // window.location.href = "../student/" + res.data.student_id;
-          console.log("response", res);
-        } else {
-          console.log("response", res);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
+    window.location.href = "./viewallexams"
+
+  }
+
+  // const handle_all_students = (e) => {
+  //   e.preventDefault();
+  //   console.log("reached all students");
+  //   axios
+  //     .post("http://localhost:5000/getallstudents",{
+  //       dummy: "dummy"
+  //     })
+  //     .then((res) => {
+  //       if (res.data.error === "none") {
+  //         // window.location.href("url/studenthome/:s_email")
+  //         // window.location.href = "../student/" + res.data.student_id;
+  //         console.log("response", res);
+  //       } else {
+  //         console.log("response", res);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -110,7 +128,7 @@ export default function LoginAdmin() {
             className={classes.submit}
             onClick={handle_all_students}
           >
-            Display All Students
+            Display All Exams
           </Button>
           <Button
             type="submit"
@@ -118,7 +136,7 @@ export default function LoginAdmin() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={handle_submit}
+            onClick={handle_view}
           >
             View Seating Arrangements
           </Button>
@@ -129,7 +147,7 @@ export default function LoginAdmin() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={handle_submit}
+            onClick={handle_delete}
           >
             Cancel Registration
           </Button>
@@ -140,7 +158,7 @@ export default function LoginAdmin() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={handle_submit}
+            onClick={handle_payment}
           >
             Review Payment Status
           </Button>

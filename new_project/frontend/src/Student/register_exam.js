@@ -93,6 +93,7 @@ export default function ExamRegistration(props) {
             .then((res) => {
                 if (res.data.error === "none") {
                     console.log("response", res);
+                    window.location.href="../" + id;
                 } else if (res.data.error === "student not found") {
                     window.location.href = "../../../";
                 } else {

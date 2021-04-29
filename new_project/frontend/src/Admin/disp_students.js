@@ -66,44 +66,46 @@ const useStyles = makeStyles((theme) => ({
 export default function ViewSeating(props) {
     const classes = useStyles();
 
-    
-    const [exam_date, setExamDate] = useState("");  
+
+
+
+    const [exam_date, setExamDate] = useState("");
     const [venue, setVenue] = useState("");
-    const [submitClick,setsubmitClick] = useState(false);
-    
+    const [submitClick, setsubmitClick] = useState(false);
+
     //for the seating table
 
     //pullingo values
 
 
-function createData(add,age,DOB,e_date,s_name,ph_number,venue,e_id,paid,seat_number,s_id,sub,v_id) {
-  return { add,age,DOB,e_date,s_name,ph_number,venue,e_id,paid,seat_number,s_id,sub,v_id};
-}
+    function createData(add, age, DOB, e_date, s_name, ph_number, venue, e_id, paid, seat_number, s_id, sub, v_id) {
+        return { add, age, DOB, e_date, s_name, ph_number, venue, e_id, paid, seat_number, s_id, sub, v_id };
+    }
 
-// const rows = [
-//   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-//   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-//   createData('Eclair', 262, 16.0, 24, 6.0),
-//   createData('Cupcake', 305, 3.7, 67, 4.3),
-//   createData('Gingerbread', 356, 16.0, 49, 3.9),
-// ];
+    // const rows = [
+    //   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+    //   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+    //   createData('Eclair', 262, 16.0, 24, 6.0),
+    //   createData('Cupcake', 305, 3.7, 67, 4.3),
+    //   createData('Gingerbread', 356, 16.0, 49, 3.9),
+    // ];
 
 
-// let [rows,setRows]=useState([]);
-let [rows,setRows] = useState([]);
-//seating table stuff ends^
+    // let [rows,setRows]=useState([]);
+    let [rows, setRows] = useState([]);
+    //seating table stuff ends^
 
     console.log("reached");
 
-  
+
 
     const handle_submit = (e) => {
         e
-        .preventDefault();
+            .preventDefault();
         setsubmitClick(true);
         console.log("bruhbruhbruh");
         axios
-            .post("http://localhost:5000/seatsforvenueanddate", {           
+            .post("http://localhost:5000/seatsforvenueanddate", {
                 DOE: exam_date,
                 venue: venue
             })
@@ -112,14 +114,23 @@ let [rows,setRows] = useState([]);
                 if (res.data.error === "none") {
                     console.log("response", res);
                     console.log(res);
-                    
 
-                
-                    let rows1=[]
-                    
+
+                    //set values for rows1 
+                    // from 0-lenghtof response array:
+                    // rows1.push(createData(res.data.correct aana vishwayam))
+                    // let rows1 = [
+                    //     createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+                    //     createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+                    //     createData('Eclair', 262, 16.0, 24, 6.0),
+                    //     createData('Cupcake', 305, 3.7, 67, 4.3),
+                    //     createData('Gingerbread', 356, 16.0, 49, 3.9),
+                    //   ];
+                    // add,age,DOB,e_date,s_name,ph_number,venue,e_id,paid,seat_number,s_id,sub,v_id
+                    let rows1 = []
+
                     console.log(res.data.seats.length);
-                    for(let i=0;i<res.data.seats.length;i++)
-                    {
+                    for (let i = 0; i < res.data.seats.length; i++) {
                         rows1.push(createData(res.data.seats[i].Address, res.data.seats[i].Age, res.data.seats[i].DOB, res.data.seats[i].Exam_Date, res.data.seats[i].Name, res.data.seats[i].Phone_no, res.data.seats[i].Venue, res.data.seats[i].exam_id, res.data.seats[i].paid, res.data.seats[i].seatno, res.data.seats[i].student_id, res.data.seats[i].subject, res.data.seats[i].venue_id));
                     }
                     setRows(rows1);
@@ -131,68 +142,56 @@ let [rows,setRows] = useState([]);
             })
             .catch((err) => console.log(err));
     };
-
-    let modifyClicked = ()=>{
-        window.location.href="http://localhost:3000/admin/modifyseating";
-    }
-    let decideRender = ()=>{
-        console.log("rows now= ",rows);
+    let decideRender = () => {
+        console.log("rows now= ", rows);
         let obj;
-        if(submitClick){
-            obj = ( <TableContainer component={Paper} style={{"width":"900px"}}>
-            <Table className={classes.table} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell align="right">Address</TableCell>
-                  <TableCell align="right">Age</TableCell>
-                  <TableCell align="right">Date of Birth</TableCell>
-                  <TableCell align="right">Exam Date</TableCell>
-                  <TableCell align="right">Name</TableCell>
-                  <TableCell align="right">Phone Number</TableCell>
-                  <TableCell align="right">Venue</TableCell>
-                  <TableCell align="right">Exam ID</TableCell>
-                  <TableCell align="right">Paid(y/n)</TableCell>
-                  <TableCell align="right">Seat Number</TableCell>
-                  <TableCell align="right">Student ID</TableCell>
-                  <TableCell align="right">Subject</TableCell>
-                  <TableCell align="right">Venue ID</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow >
-                    <TableCell align="right">{row.add}</TableCell>
-                    <TableCell align="right">{row.age}</TableCell>
-                    <TableCell align="right">{row.DOB}</TableCell>
-                    <TableCell align="right">{row.e_date}</TableCell>
-                    <TableCell align="right">{row.s_name}</TableCell>
-                    <TableCell align="right">{row.ph_number}</TableCell>
-                    <TableCell align="right">{row.venue}</TableCell>
-                    <TableCell align="right">{row.e_id}</TableCell>
-                    <TableCell align="right">{row.paid}</TableCell>
-                    <TableCell align="right">{row.seat_number}</TableCell>
-                    <TableCell align="right">{row.s_id}</TableCell>
-                    <TableCell align="right">{row.sub}</TableCell>
-                    <TableCell align="right">{row.v_id}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-            <Button type="submit"
-               fullWidth
-               variant="contained"
-               color="primary"
-               className={classes.submit}
-               onClick={modifyClicked}
-               >
-                Modify Seating Arrangements      
-        </Button>
-          </TableContainer>
-          )
+        if (submitClick) {
+            obj = (
+                <TableContainer component={Paper}>
+                    <Table className={classes.table} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell align="right">Address</TableCell>
+                                <TableCell align="right">Age</TableCell>
+                                <TableCell align="right">Date of Birth</TableCell>
+                                <TableCell align="right">Exam Date</TableCell>
+                                <TableCell align="right">Name</TableCell>
+                                <TableCell align="right">Phone Number</TableCell>
+                                <TableCell align="right">Venue</TableCell>
+                                <TableCell align="right">Exam ID</TableCell>
+                                <TableCell align="right">Paid(y/n)</TableCell>
+                                <TableCell align="right">Seat Number</TableCell>
+                                <TableCell align="right">Student ID</TableCell>
+                                <TableCell align="right">Subject</TableCell>
+                                <TableCell align="right">Venue ID</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {rows.map((row) => (
+                                <TableRow >
+                                    <TableCell align="right">{row.add}</TableCell>
+                                    <TableCell align="right">{row.age}</TableCell>
+                                    <TableCell align="right">{row.DOB}</TableCell>
+                                    <TableCell align="right">{row.e_date}</TableCell>
+                                    <TableCell align="right">{row.s_name}</TableCell>
+                                    <TableCell align="right">{row.ph_number}</TableCell>
+                                    <TableCell align="right">{row.venue}</TableCell>
+                                    <TableCell align="right">{row.e_id}</TableCell>
+                                    <TableCell align="right">{row.paid}</TableCell>
+                                    <TableCell align="right">{row.seat_number}</TableCell>
+                                    <TableCell align="right">{row.s_id}</TableCell>
+                                    <TableCell align="right">{row.sub}</TableCell>
+                                    <TableCell align="right">{row.v_id}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            )
         }
         else
-            obj =<div></div>;
-    return obj;
+            obj = <div></div>;
+        return obj;
     }
     let obj = decideRender();
     return (
@@ -205,7 +204,7 @@ let [rows,setRows] = useState([]);
                 </Typography>
 
                 <form className={classes.form} noValidate>
-                    
+
                     <p> Enter Date of Examination:</p>
                     <TextField
                         id="exam_date"
@@ -219,7 +218,7 @@ let [rows,setRows] = useState([]);
                             shrink: true,
                         }}
                         onChange={(e) => setExamDate(e.target.value)}
-                    />                  
+                    />
                     <p> Enter Venue:</p>
                     <FormControl className={classes.formControl}>
                         <InputLabel id="Venue"></InputLabel>
@@ -239,18 +238,18 @@ let [rows,setRows] = useState([]);
                             <MenuItem value="Delhi-Maya Nagar">Delhi-Maya Nagar</MenuItem>
                             <MenuItem value="Delhi-Lajpat Nagar">Delhi-Lajpat Nagar</MenuItem>
                         </Select>
-                    </FormControl>                   
+                    </FormControl>
                     <Button
                         type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                        onClick={(e)=>{handle_submit(e);}}
+                        onClick={(e) => { handle_submit(e); }}
                     >
                         Submit
           </Button>
-        </form>
+                </form>
             </div>
             <Box mt={8}>
                 <Copyright />
