@@ -63,14 +63,7 @@ export default function SignUp() {
         email: email,
         password: password,
       })
-      .then((res) => {
-        if (res.data.error === "none") {
-          console.log("response", res);
-        } else {
-          alert("ERROR ", res.data.error);
-        }
-      })
-      .catch((err) => console.log(err));
+      window.location.href = "../../login/student";
   };
 
   return (
