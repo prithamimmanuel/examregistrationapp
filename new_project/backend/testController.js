@@ -85,7 +85,8 @@ exports.deletestudent = (req, res) => {
 		const promise = new Promise(async (resolve, reject) => {
 
 			try {
-				let x = await db.execute("delete from students where student_id = ?;", [req.body['id']]);
+				let x = await db.execute("delete from student_exam_details where student_id = ?;", [req.body['id']]);
+				x = await db.execute("delete from students where student_id = ?;", [req.body['id']]);
 				resolve(x[0]);
 			} catch (err) {
 				reject(err);
@@ -634,7 +635,7 @@ exports.modifyseating = (req, res) => {
 		x = data;
 		if (x == undefined || x == "seat already taken") {
 			console.log("seat change not done!");
-			res.status(200).json({ "error": "no rescheduling" });
+			res.status(200).json({ "error": "no seat change" });
 		} else {
 			console.log("seat change done!");
 			res.status(200).json({ "error": "none" });
@@ -665,12 +666,6 @@ exports.displayallexams = (req, res) => {
 
 	fetchData().then(data => {
 		x = data;
-		// console.log(data);
-		// console.log("/n/n/n/nstart");
-		for (student in x) {
-			console.log(x[student]['name']);
-		}
-		// console.log("end/n/n/n/n");
 		if (x == undefined) {
 			console.log("no clue what happened there");
 			res.status(200).json({ "error": "db error" });
