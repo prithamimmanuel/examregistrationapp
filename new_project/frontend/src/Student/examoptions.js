@@ -63,6 +63,7 @@ export default function ExamOptions(props) {
           console.log("response", res);
         } else {
           console.log("response", res);
+          window.location.href = "../../../student/" + s_id; 
         }
       })
       .catch((err) => console.log(err));
